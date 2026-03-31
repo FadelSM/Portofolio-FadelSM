@@ -28,20 +28,17 @@
     h1 { text-align: center; color: #4b0082; margin-bottom: 5px; font-size: 1.6rem; }
     h2 { color: #4b0082; border-left: 5px solid #4b0082; padding-left: 12px; margin-top: 25px; font-size: 1.3rem; }
 
-    /* Kotak Ringkasan */
+    /* Kotak Ringkasan Sertifikat Aktif */
     .summary-box {
         background: #f4f0fa;
         padding: 15px;
-        border-radius: 8px;
-        border: 1px solid #e6d9f5;
-        margin-top: 15px;
-        display: flex;
-        justify-content: space-around;
+        border-radius: 10px;
+        border: 2px solid #4b0082;
+        margin: 20px 0;
         text-align: center;
     }
-    .summary-item { flex: 1; }
-    .summary-count { display: block; font-size: 1.5rem; font-weight: bold; color: #4b0082; }
-    .summary-label { font-size: 0.8rem; color: #666; font-weight: bold; }
+    .summary-count { display: block; font-size: 2.2rem; font-weight: bold; color: #4b0082; }
+    .summary-label { font-size: 0.9rem; color: #666; font-weight: bold; letter-spacing: 1px; }
 
     table { 
         width: 100%; 
@@ -63,6 +60,7 @@
     }
     
     table tbody tr:nth-child(even) { background-color: #f9f6ff; }
+    table tbody tr:hover { background-color: #f0eaff; }
 
     .link-aktif { font-weight: bold; color: #4b0082; text-decoration: underline; display: block; margin-bottom: 6px; }
     .tanpa-link { font-weight: bold; color: #777; display: block; margin-bottom: 6px; }
@@ -105,19 +103,12 @@
     <ul class="profil-list">
         <li><strong>Nama:</strong> Fadel Shafwan Maliki</li>
         <li><strong>Sekolah:</strong> SMAS PGRI 3 Jakarta (Kelas X.4)</li>
-        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">Cek Profil</a></li>
+        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">@fadelshafwanmaliki</a></li>
     </ul>
 
-    <h2>Ringkasan Capaian</h2>
     <div class="summary-box">
-        <div class="summary-item">
-            <span class="summary-count" id="total-sertif">0</span>
-            <span class="summary-label">TOTAL SERTIFIKAT</span>
-        </div>
-        <div class="summary-item">
-            <span class="summary-count" id="total-emas">0</span>
-            <span class="summary-label">MEDALI EMAS</span>
-        </div>
+        <span class="summary-count" id="count-web-link">0</span>
+        <span class="summary-label">SERTIFIKAT DIGITAL TERVERIFIKASI</span>
     </div>
 
     <h2>Daftar Kompetisi Nasional</h2>
@@ -125,7 +116,7 @@
         <thead>
             <tr>
                 <th style="width: 12%;">No</th>
-                <th style="text-align: left;">Detail Kompetisi & Hasil</th>
+                <th style="text-align: left;">Informasi Kompetisi & Hasil</th>
             </tr>
         </thead>
         <tbody id="prestasi-body"></tbody>
@@ -137,6 +128,7 @@
 </div>
 
 <script>
+    // Data Prestasi Fadel
     const dataPrestasi = [
         { nama: "Ramadhan Science Competition Indonesia (RSCI)", link: "https://app.puskanas.id/#piaghappyQ0JTNVFCKzNUVVJMVjhqeWQzazF5QT09", host: "Fosnas / Puskanas", bidang: "Informatika", hasil: "Medali Emas" },
         { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyT2F4OHBGaW54UHhKNzYxY05aMG1HUT09", host: "Gemanesia / Puskanas", bidang: "Ekonomi", hasil: "Medali Emas" },
@@ -159,16 +151,16 @@
     ];
 
     const tbody = document.getElementById('prestasi-body');
-    let countEmas = 0;
-    let countTotalSertif = 0;
+    let totalWebSertif = 0;
 
     dataPrestasi.forEach((item, index) => {
+        const hasLink = item.link && item.link !== "";
         const isComing = item.hasil === "Coming Soon";
-        const hasLink = item.link !== "";
         
-        // Hitung statistik
-        if (item.hasil.includes("Emas")) countEmas++;
-        if (item.hasil !== "Coming Soon") countTotalSertif++;
+        // Hitung jika link tersedia (piagam online)
+        if (hasLink) {
+            totalWebSertif++;
+        }
 
         const titleHTML = hasLink 
             ? `<a href="${item.link}" target="_blank" class="link-aktif">${item.nama}</a>`
@@ -190,9 +182,8 @@
         tbody.innerHTML += row;
     });
 
-    // Update angka ringkasan
-    document.getElementById('total-emas').innerText = countEmas;
-    document.getElementById('total-sertif').innerText = countTotalSertif;
+    // Tampilkan total sertifikat yang ada linknya
+    document.getElementById('count-web-link').innerText = totalWebSertif;
 
     window.addEventListener('load', () => {
         document.querySelector('.container').classList.add('visible');
