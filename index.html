@@ -52,6 +52,8 @@
         font-weight: bold;
         transition: 0.2s;
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
     }
     .btn-print:hover { background-color: #3a0066; transform: scale(1.05); }
 
@@ -75,6 +77,7 @@
         border: 2px solid var(--border-color);
         border-radius: 8px;
         font-size: 0.95rem;
+        box-sizing: border-box;
     }
     .search-input:focus { border-color: var(--primary-color); outline: none; }
     .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #888; }
@@ -89,7 +92,7 @@
     }
     table th { background-color: var(--primary-color); color: white; padding: 14px; }
     table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: top; transition: 0.2s; }
-    table tbody tr:hover { background-color: #fcfaff; }
+    table tbody tr:hover { background-color: #fcfaff; transform: translateX(5px); }
     table tbody tr:nth-child(even) { background-color: #fbf9ff; }
 
     .link-aktif { font-weight: bold; color: var(--primary-color); text-decoration: underline; display: block; margin-bottom: 7px; }
@@ -127,7 +130,7 @@
     <h2>Profil Lengkap</h2>
     <ul style="list-style: none; padding: 0;">
         <li><strong>Nama:</strong> Fadel Shafwan Maliki [cite: 7]</li>
-        <li><strong>Sekolah:</strong> SMAS PGRI 3 Jakarta (Kelas X.4) [cite: 7]</li>
+        <li><strong>Sekolah:</strong> SMAS PGRI 3 Jakarta [cite: 7]</li>
         <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">@fadelshafwanmaliki</a></li>
     </ul>
 
@@ -153,20 +156,21 @@
     </table>
 
     <p style="text-align: center; font-style: italic; color: #666; margin-top: 25px; font-size: 0.85rem;">
-        Catatan: Dokumen ini disusun untuk keperluan akademik. Alamat rumah tidak dicantumkan demi privasi.
+        Catatan: Dokumen ini disusun untuk keperluan akademik.
     </p>
 
     <footer>Copyright &copy; 2026 FadelSM</footer>
 </div>
 
 <script>
+    // Data Prestasi Fadel - Menggunakan data dari sertifikat asli RSCI
     const dataPrestasi = [
         { 
-            nama: "Ramadhan Science Competition Indonesia (RSCI) 2026", 
-            link: "piag_Penghargaan.pdf", 
+            nama: "RAMADHAN SCIENCE COMPETITION INDONESIA (RSCI) 2026", 
+            link: "piag_Penghargaan.pdf", // Link ke file asli
             host: "Festival Olimpiade Sains Nasional (FOSNAS)", 
             bidang: "Informatika", 
-            hasil: "Medali Emas (Predikat A+)" 
+            hasil: "Peraih Medali Emas (Predikat A+)" 
         },
         { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyT2F4OHBGaW54UHhKNzYxY05aMG1HUT09", host: "Gemanesia / Puskanas", bidang: "Ekonomi", hasil: "Medali Emas" },
         { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyMWplSVc3MXFyRUpPdm9LZGJ2NGlTUT09", host: "Gemanesia / Puskanas", bidang: "Ppkn", hasil: "Medali Emas" },
@@ -175,8 +179,7 @@
         { nama: "National Science Competition (NSC)", link: "", host: "Puskanas", bidang: "Informatika", hasil: "Medali Emas" },
         { nama: "Olimpiade Sains Muda Indonesia (OSMI)", link: "", host: "Muda Sains Nasional", bidang: "Ekonomi", hasil: "Medali Perak" },
         { nama: "Olimpiade Sains Muda Indonesia (OSMI)", link: "", host: "Muda Sains Nasional", bidang: "Informatika", hasil: "Medali Emas" },
-        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Informatika", hasil: "Coming Soon" },
-        { nama: "Generasi Unggul Dalam Akademik (GARUDA)", link: "", host: "Lembaga Olimpiade Nasional", bidang: "Informatika", hasil: "Coming Soon" }
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Informatika", hasil: "Coming Soon" }
     ];
 
     const tbody = document.getElementById('prestasi-body');
@@ -199,9 +202,11 @@
         });
     }
 
+    // Hitung total sertifikat ber-link
     document.getElementById('count-web-link').innerText = dataPrestasi.filter(i => i.link !== "").length;
     render(dataPrestasi);
 
+    // Filter Pencarian
     document.getElementById('search-input').addEventListener('input', (e) => {
         const val = e.target.value.toLowerCase();
         render(dataPrestasi.filter(i => 
@@ -211,6 +216,7 @@
         ));
     });
 
+    // Animasi Muncul
     window.onload = () => document.querySelector('.container').classList.add('visible');
 </script>
 </body>
