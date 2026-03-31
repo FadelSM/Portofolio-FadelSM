@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daftar Sertifikat Fadel</title>
+<title>Portofolio Prestasi Fadel</title>
 <style>
     :root {
         --primary-color: #4b0082;
         --secondary-color: #f4f0fa;
         --text-color: #333;
         --bg-color: #f0f2f5;
+        --border-color: #ddd;
+        --shadow-color: rgba(0,0,0,0.08);
     }
 
     body {
@@ -17,6 +19,7 @@
         background-color: var(--bg-color);
         margin: 0;
         padding: 10px;
+        color: var(--text-color);
     }
 
     .container {
@@ -25,163 +28,191 @@
         padding: 25px;
         background-color: #fff;
         border-radius: 16px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 25px var(--shadow-color);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s ease-out;
     }
+    .container.visible { opacity: 1; transform: translateY(0); }
     
     .header-group {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
-
+    h1 { color: var(--primary-color); margin: 0; font-size: 1.8rem; }
+    
     .btn-print {
         background-color: var(--primary-color);
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 18px;
         border-radius: 8px;
         cursor: pointer;
         font-weight: bold;
+        transition: 0.2s;
     }
+    .btn-print:hover { background-color: #3a0066; transform: scale(1.05); }
 
-    /* Tabel Style */
+    h2 { color: var(--primary-color); border-left: 5px solid var(--primary-color); padding-left: 12px; margin-top: 30px; font-size: 1.4rem; }
+
+    .summary-box {
+        background: var(--secondary-color);
+        padding: 18px;
+        border-radius: 12px;
+        border: 2px solid var(--primary-color);
+        margin: 25px 0;
+        text-align: center;
+    }
+    .summary-count { display: block; font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
+    .summary-label { font-size: 0.95rem; color: #555; font-weight: bold; }
+
+    /* Search Bar */
+    .search-group { margin: 20px 0; position: relative; }
+    .search-input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+    .search-input:focus { border-color: var(--primary-color); outline: none; }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #888; }
+
+    /* Table */
     table { 
         width: 100%; 
-        border-collapse: collapse;
+        border-collapse: collapse; 
         margin-top: 10px; 
         border: 2px solid var(--primary-color);
+        border-radius: 8px;
+        overflow: hidden;
     }
-    table th { 
-        background-color: var(--primary-color); 
-        color: white; 
-        padding: 12px;
-    }
-    table td { 
-        border: 1px solid #ddd; 
-        padding: 12px;
-        vertical-align: top;
-    }
+    table th { background-color: var(--primary-color); color: white; padding: 14px; }
+    table td { border-bottom: 1px solid var(--border-color); padding: 15px; vertical-align: top; transition: 0.2s; }
+    table tbody tr:hover { background-color: #fcfaff; transform: translateX(5px); }
+    table tbody tr:nth-child(even) { background-color: #fbf9ff; }
 
-    .status-badge {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: #e6d9f5;
-        font-size: 0.8rem;
-        font-weight: bold;
+    .link-aktif { font-weight: bold; color: var(--primary-color); text-decoration: underline; display: block; margin-bottom: 7px; }
+    .tanpa-link { font-weight: bold; color: #777; display: block; margin-bottom: 7px; }
+
+    .status-badge { 
+        display: inline-block; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.8rem;
+        background: #e6d9f5; color: var(--primary-color); border: 1px solid #d1bdf0;
     }
+    .coming-soon { color: #888; font-style: italic; background: #eee; border: 1px solid #ddd; }
 
-    /* KOTAK RINGKASAN & PROFIL (Muncul di Web, Hilang saat Cetak) */
-    .no-print-section { margin-bottom: 30px; }
+    .btn-ig { color: #fff; background: var(--primary-color); padding: 5px 14px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; }
 
-    /* ==========================================
-       PENGATURAN KHUSUS CETAK (PRINT)
-       ========================================== */
+    footer { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9rem; color: var(--primary-color); font-weight: bold; }
+
+    /* PRINT LOGIC */
     @media print {
-        /* Sembunyikan semua kecuali tabel sertifikat */
-        body { background: white; }
-        .no-print-section, .btn-print, .search-group, .btn-ig { 
-            display: none !important; 
-        }
-        
-        .container { 
-            box-shadow: none; 
-            margin: 0; 
-            padding: 0; 
-            width: 100%;
-        }
-
-        /* Judul Khusus di Halaman Cetak */
-        .print-only-header {
-            display: block !important;
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid black;
-            padding-bottom: 10px;
-        }
-
-        table { border-color: black !important; }
+        .btn-print, .search-group, .summary-box, .btn-ig { display: none !important; }
+        body { background: white; padding: 0; }
+        .container { box-shadow: none; margin: 0; padding: 0; opacity: 1 !important; transform: none !important; }
+        table { border: 1px solid black !important; }
         table th { background-color: #eee !important; color: black !important; border: 1px solid black; }
-        table td { border-color: black !important; }
-        
+        table td { border: 1px solid black !important; color: black !important; }
         .status-badge { border: 1px solid black !important; background: none !important; color: black !important; }
-        
-        footer { margin-top: 20px; border-top: 1px solid black !important; color: black !important; }
     }
-
-    .print-only-header { display: none; } /* Sembunyikan di tampilan web biasa */
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="print-only-header">
-        <h1 style="font-size: 20px; margin: 0;">DAFTAR SERTIFIKAT PRESTASI NASIONAL</h1>
-        <p style="margin: 5px 0;">Nama: Fadel Shafwan Maliki | Sekolah: SMAS PGRI 3 Jakarta</p>
+    <div class="header-group">
+        <h1>Portofolio Prestasi Siswa</h1>
+        <button onclick="window.print()" class="btn-print">Cetak / Simpan PDF</button>
     </div>
 
-    <div class="no-print-section">
-        <div class="header-group">
-            <h1 style="color:var(--primary-color)">Portofolio Prestasi</h1>
-            <button onclick="window.print()" class="btn-print">Cetak Daftar Sertifikat</button>
-        </div>
-        
-        <div style="background: var(--secondary-color); padding: 15px; border-radius: 10px;">
-            <strong>Profil Singkat:</strong> Fadel Shafwan Maliki (Kelas X.4)
-        </div>
+    <h2>Profil Lengkap</h2>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Nama:</strong> Fadel Shafwan Maliki</li>
+        <li><strong>Sekolah:</strong> SMAS PGRI 3 Jakarta (Kelas X.4)</li>
+        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">@fadelshafwanmaliki</a></li>
+    </ul>
+
+    <div class="summary-box">
+        <span class="summary-count" id="count-web-link">0</span>
+        <span class="summary-label">SERTIFIKAT DIGITAL TERVERIFIKASI</span>
     </div>
 
-    <h2 style="font-size: 1.2rem; color: var(--primary-color);">Daftar Prestasi & Sertifikat</h2>
-    
+    <h2>Daftar Kompetisi Nasional</h2>
+    <div class="search-group">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Cari lomba atau bidang...">
+    </div>
+
     <table>
         <thead>
             <tr>
-                <th style="width: 50px;">No</th>
-                <th style="text-align: left;">Nama Kompetisi & Bidang</th>
-                <th style="width: 150px;">Hasil</th>
+                <th style="width: 10%;">No</th>
+                <th style="text-align: left;">Informasi Kompetisi & Hasil</th>
             </tr>
         </thead>
-        <tbody id="prestasi-body">
-            </tbody>
+        <tbody id="prestasi-body"></tbody>
     </table>
 
-    <footer>
-        <p style="text-align: center; font-size: 12px; margin-top: 30px;">
-            Dokumen disusun untuk keperluan akademik | Copyright &copy; 2026 FadelSM
-        </p>
-    </footer>
+    <p style="text-align: center; font-style: italic; color: #666; margin-top: 25px; font-size: 0.85rem;">
+        Catatan: Dokumen ini disusun untuk keperluan akademik. Alamat rumah tidak dicantumkan demi privasi.
+    </p>
+
+    <footer>Copyright &copy; 2026 FadelSM</footer>
 </div>
 
 <script>
     const dataPrestasi = [
-        { nama: "Ramadhan Science Competition Indonesia (RSCI)", bidang: "Informatika", hasil: "Medali Emas" },
-        { nama: "Semarak Sains Nasional (SSN)", bidang: "Ekonomi", hasil: "Medali Emas" },
-        { nama: "Semarak Sains Nasional (SSN)", bidang: "Ppkn", hasil: "Medali Emas" },
-        { nama: "Semarak Sains Nasional (SSN)", bidang: "Informatika", hasil: "Medali Emas" },
-        { nama: "National Science Competition (NSC)", bidang: "Ppkn", hasil: "Medali Emas" },
-        { nama: "National Science Competition (NSC)", bidang: "Informatika", hasil: "Medali Emas" },
-        { nama: "Olimpiade Sains Muda Indonesia (OSMI)", bidang: "Ekonomi", hasil: "Medali Perak" },
-        { nama: "Olimpiade Sains Muda Indonesia (OSMI)", bidang: "Informatika", hasil: "Medali Emas" }
+        { nama: "Ramadhan Science Competition Indonesia (RSCI)", link: "https://app.puskanas.id/#piaghappyQ0JTNVFCKzNUVVJMVjhqeWQzazF5QT09", host: "Fosnas / Puskanas", bidang: "Informatika", hasil: "Medali Emas" },
+        { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyT2F4OHBGaW54UHhKNzYxY05aMG1HUT09", host: "Gemanesia / Puskanas", bidang: "Ekonomi", hasil: "Medali Emas" },
+        { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyMWplSVc3MXFyRUpPdm9LZGJ2NGlTUT09", host: "Gemanesia / Puskanas", bidang: "Ppkn", hasil: "Medali Emas" },
+        { nama: "Semarak Sains Nasional (SSN)", link: "https://app.puskanas.id/#piaghappyU0MydjhYM2p3ZDhPM2N6eGpOUFp1QT09", host: "Gemanesia / Puskanas", bidang: "Informatika", hasil: "Medali Emas" },
+        { nama: "National Science Competition (NSC)", link: "", host: "Puskanas", bidang: "Ppkn", hasil: "Medali Emas" },
+        { nama: "National Science Competition (NSC)", link: "", host: "Puskanas", bidang: "Informatika", hasil: "Medali Emas" },
+        { nama: "Olimpiade Sains Muda Indonesia (OSMI)", link: "", host: "Muda Sains Nasional", bidang: "Ekonomi", hasil: "Medali Perak" },
+        { nama: "Olimpiade Sains Muda Indonesia (OSMI)", link: "", host: "Muda Sains Nasional", bidang: "Informatika", hasil: "Medali Emas" },
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Bahasa Indonesia", hasil: "Coming Soon" },
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Bahasa Inggris", hasil: "Coming Soon" },
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Matematika", hasil: "Coming Soon" },
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Kimia", hasil: "Coming Soon" },
+        { nama: "Future Science Competition (FSC)", link: "", host: "Yaspresnas", bidang: "Informatika", hasil: "Coming Soon" },
+        { nama: "Generasi Unggul Dalam Akademik (GARUDA)", link: "", host: "Lembaga Olimpiade Nasional", bidang: "Matematika", hasil: "Coming Soon" },
+        { nama: "Generasi Unggul Dalam Akademik (GARUDA)", link: "", host: "Lembaga Olimpiade Nasional", bidang: "Akuntansi", hasil: "Coming Soon" },
+        { nama: "Generasi Unggul Dalam Akademik (GARUDA)", link: "", host: "Lembaga Olimpiade Nasional", bidang: "Geografi", hasil: "Coming Soon" },
+        { nama: "Generasi Unggul Dalam Akademik (GARUDA)", link: "", host: "Lembaga Olimpiade Nasional", bidang: "Informatika", hasil: "Coming Soon" },
+        { nama: "Prestasi Tambahan Nasional", link: "", host: "Lembaga Terkait", bidang: "Umum", hasil: "Coming Soon" }
     ];
 
     const tbody = document.getElementById('prestasi-body');
-    dataPrestasi.forEach((item, index) => {
-        const row = `
-            <tr>
-                <td style="text-align: center;">${index + 1}</td>
-                <td>
-                    <strong>${item.nama}</strong><br>
-                    <span style="font-size: 0.85rem; color: #666;">Bidang: ${item.bidang}</span>
-                </td>
-                <td style="text-align: center;">
-                    <span class="status-badge">${item.hasil}</span>
-                </td>
-            </tr>
-        `;
-        tbody.innerHTML += row;
-    });
-</script>
+    function render(data) {
+        tbody.innerHTML = '';
+        data.forEach((item, index) => {
+            const hasLink = item.link !== "";
+            tbody.innerHTML += `
+                <tr>
+                    <td style="text-align: center; font-weight: bold;">${index + 1}</td>
+                    <td>
+                        ${hasLink ? `<a href="${item.link}" target="_blank" class="link-aktif">${item.nama}</a>` : `<span class="tanpa-link">${item.nama}</span>`}
+                        <div style="font-size: 0.85rem; color: #555;">
+                            <b>Penyelenggara:</b> ${item.host}<br>
+                            <b>Bidang:</b> ${item.bidang}<br>
+                            <span class="status-badge ${item.hasil === 'Coming Soon' ? 'coming-soon' : ''}">${item.hasil}</span>
+                        </div>
+                    </td>
+                </tr>`;
+        });
+    }
 
+    document.getElementById('count-web-link').innerText = dataPrestasi.filter(i => i.link !== "").length;
+    render(dataPrestasi);
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase();
+        render(dataPrestasi.filter(i => i.nama.toLowerCase().includes(val) || i.bidang.toLowerCase().includes(val)));
+    });
+
+    window.onload = () => document.querySelector('.container').classList.add('visible');
+</script>
 </body>
 </html>
