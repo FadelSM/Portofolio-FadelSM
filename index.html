@@ -7,7 +7,7 @@
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f4f9;
+        background-color: #f0f2f5;
         margin: 0;
         padding: 10px;
         color: #333;
@@ -17,83 +17,102 @@
         margin: 10px auto;
         padding: 20px;
         background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.6s ease-out;
     }
     .container.visible { opacity: 1; transform: translateY(0); }
     
-    h1 { text-align: center; color: #4b0082; margin-bottom: 5px; font-size: 1.5rem; }
-    h2 { color: #4b0082; border-left: 4px solid #4b0082; padding-left: 10px; margin-top: 25px; font-size: 1.2rem; }
+    h1 { text-align: center; color: #4b0082; margin-bottom: 5px; font-size: 1.6rem; }
+    h2 { color: #4b0082; border-left: 5px solid #4b0082; padding-left: 12px; margin-top: 25px; font-size: 1.3rem; }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    table th { background-color: #4b0082; color: white; padding: 12px; text-align: center; font-size: 0.9rem; }
-    table td { border-bottom: 1px solid #eee; padding: 15px 10px; vertical-align: top; }
+    /* Gaya Tabel dengan Garis */
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 15px; 
+        border: 2px solid #4b0082; /* Garis luar tebal */
+    }
+    table th { 
+        background-color: #4b0082; 
+        color: white; 
+        padding: 12px; 
+        text-align: center; 
+        border: 1px solid #ffffff; /* Garis putih antar header */
+    }
+    table td { 
+        border: 1px solid #ddd; /* Garis abu-abu antar sel */
+        padding: 12px; 
+        vertical-align: top; 
+    }
     
+    /* Warna selang-seling (Zebra) */
+    table tbody tr:nth-child(even) { background-color: #f9f6ff; }
+    table tbody tr:hover { background-color: #f0eaff; }
+
     /* Perbedaan Link */
     .link-aktif { 
         font-weight: bold; 
         color: #4b0082; 
         text-decoration: underline; 
         display: block; 
-        margin-bottom: 5px; 
-        font-size: 1rem; 
+        margin-bottom: 6px; 
     }
     .tanpa-link { 
         font-weight: bold; 
-        color: #666; 
-        text-decoration: none; 
+        color: #777; 
         display: block; 
-        margin-bottom: 5px; 
-        font-size: 1rem; 
-        cursor: default;
+        margin-bottom: 6px; 
     }
 
-    .detail-text { font-size: 0.85rem; color: #777; line-height: 1.5; }
+    .detail-text { font-size: 0.85rem; color: #555; line-height: 1.6; }
     .status-badge { 
         display: inline-block; 
-        padding: 2px 8px; 
+        padding: 3px 10px; 
         border-radius: 4px; 
         font-weight: bold; 
         font-size: 0.8rem;
         background: #e6d9f5;
         color: #4b0082;
+        border: 1px solid #d1bdf0;
     }
-    .coming-soon { color: #888; font-style: italic; background: #f0f0f0; }
+    .coming-soon { color: #888; font-style: italic; background: #eee; border: 1px solid #ddd; }
 
     .profil-list { list-style: none; padding: 0; }
-    .profil-list li { margin-bottom: 8px; font-size: 0.95rem; }
-    .btn-ig { color: #fff; background: #4b0082; padding: 3px 10px; border-radius: 5px; text-decoration: none; font-size: 0.8rem; }
+    .profil-list li { margin-bottom: 8px; border-bottom: 1px dashed #ddd; padding-bottom: 4px; }
+    .btn-ig { color: #fff; background: #4b0082; padding: 4px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
 </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Portofolio Prestasi Siswa</h1>
-    <p style="text-align:center; font-size: 0.8rem; margin-bottom: 20px;">Pembaruan: 30 Maret 2026</p>
+    <p style="text-align:center; font-size: 0.85rem; color: #666;">Pembaruan: 30 Maret 2026</p>
 
-    <h2>Profil Siswa</h2>
+    <h2>Profil Lengkap</h2>
     <ul class="profil-list">
         <li><strong>Nama:</strong> Fadel Shafwan Maliki</li>
         <li><strong>Sekolah:</strong> SMAS PGRI 3 Jakarta (Kelas X.4)</li>
-        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">@fadelshafwanmaliki</a></li>
+        <li><strong>Instagram:</strong> <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" class="btn-ig">Cek Profil</a></li>
     </ul>
 
     <h2>Daftar Kompetisi Nasional</h2>
     <table>
         <thead>
             <tr>
-                <th style="width: 10%;">No</th>
-                <th style="text-align: left;">Informasi Kompetisi & Pencapaian</th>
+                <th style="width: 12%;">No</th>
+                <th style="text-align: left;">Detail Kompetisi & Hasil</th>
             </tr>
         </thead>
         <tbody id="prestasi-body">
             </tbody>
     </table>
 
-    <p style="font-size: 0.75rem; color: #999; margin-top: 30px; font-style: italic;">* Nama berwarna ungu dan bergaris bawah memiliki sertifikat digital.</p>
+    <p style="font-size: 0.8rem; color: #888; margin-top: 25px; font-style: italic;">
+        * Baris berwarna ungu memiliki link sertifikat. Baris abu-abu belum memiliki link.
+    </p>
 </div>
 
 <script>
@@ -123,20 +142,19 @@
         const isComing = item.hasil === "Coming Soon";
         const hasLink = item.link !== "";
         
-        // Pilih class berdasarkan ada link atau tidak
         const titleHTML = hasLink 
             ? `<a href="${item.link}" target="_blank" class="link-aktif">${item.nama}</a>`
             : `<span class="tanpa-link">${item.nama}</span>`;
 
         const row = `
             <tr>
-                <td style="text-align: center; font-weight: bold;">${index + 1}</td>
+                <td style="text-align: center; font-weight: bold; border-right: 1px solid #ddd;">${index + 1}</td>
                 <td>
                     ${titleHTML}
                     <div class="detail-text">
-                        Penyelenggara: <strong>${item.host}</strong><br>
-                        Bidang: <strong>${item.bidang}</strong><br>
-                        Pencapaian: <span class="status-badge ${isComing ? 'coming-soon' : ''}">${item.hasil}</span>
+                        <b>Penyelenggara:</b> ${item.host}<br>
+                        <b>Bidang:</b> ${item.bidang}<br>
+                        <span class="status-badge ${isComing ? 'coming-soon' : ''}">${item.hasil}</span>
                     </div>
                 </td>
             </tr>
