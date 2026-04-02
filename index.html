@@ -3,150 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FadelSM | Pro Repository</title>
+    <title>DevStack Portfolio | Fadel Shafwan Maliki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --slate-950: #020617;
             --slate-900: #0f172a;
             --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
             --indigo-500: #6366f1;
+            --indigo-600: #4f46e5;
             --emerald-500: #10b981;
-            --amber-500: #f59e0b;
-            --text-main: #f8fafc;
+            --text-main: #f1f5f9;
         }
 
-        * { box-sizing: border-box; transition: all 0.2s ease; }
-        body { background-color: var(--slate-950); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; display: flex; min-height: 100vh; }
+        body {
+            background-color: var(--slate-900);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
 
-        /* Sidebar Style */
-        aside { width: 280px; background: var(--slate-900); border-right: 1px solid var(--slate-800); padding: 40px 24px; flex-shrink: 0; }
-        .avatar { width: 60px; height: 60px; background: var(--indigo-500); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
-        .sidebar-info { margin-top: 25px; border-top: 1px solid var(--slate-800); padding-top: 20px; }
-        .label { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 800; display: block; margin-top: 12px; }
-        .val { font-size: 0.85rem; color: #cbd5e1; font-weight: 600; }
+        /* --- Sidebar --- */
+        aside {
+            width: 280px;
+            background: var(--slate-800);
+            border-right: 1px solid var(--slate-700);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
 
-        /* Main Content Style */
-        main { flex: 1; padding: 40px 60px; max-width: 1200px; margin: 0 auto; width: 100%; }
-        h1 { font-size: 2.2rem; margin: 0 0 30px 0; font-weight: 800; letter-spacing: -1px; }
+        .dev-profile { text-align: center; margin-bottom: 50px; }
+        .dev-avatar { 
+            width: 88px; height: 88px; 
+            background: var(--indigo-500); 
+            border-radius: 24px;
+            margin: 0 auto 20px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 700; font-size: 2.5rem; color: #fff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
 
-        #searchInput { width: 100%; padding: 16px 20px; background: var(--slate-900); border: 1px solid var(--slate-800); border-radius: 12px; color: #fff; font-family: inherit; margin-bottom: 30px; }
-        #searchInput:focus { outline: none; border-color: var(--indigo-500); }
+        .profile-meta p { margin: 8px 0; font-size: 0.9rem; color: var(--slate-400); }
+        .profile-meta b { color: var(--text-main); }
 
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-        .card { background: var(--slate-900); padding: 20px; border-radius: 16px; border: 1px solid var(--slate-800); }
-        .card-num { font-size: 2.5rem; font-weight: 800; }
-        .bar-bg { width: 100%; background: var(--slate-800); height: 6px; border-radius: 10px; margin-top: 10px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--indigo-500); width: 0%; transition: width 1s ease; }
+        /* --- Main Content --- */
+        main { flex: 1; padding: 60px; overflow-y: auto; box-sizing: border-box; width: 100%; }
 
-        /* Table Style */
-        .table-wrap { background: var(--slate-900); border-radius: 16px; border: 1px solid var(--slate-800); overflow: hidden; }
+        header { margin-bottom: 40px; }
+        header h1 { margin: 0 0 10px 0; font-size: 2.5rem; font-weight: 700; }
+        header p { margin: 0; color: var(--slate-400); font-size: 1.1rem; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: var(--slate-800);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--slate-700);
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+        }
+
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--indigo-500); line-height: 1; margin-bottom: 8px; }
+        .stat-label { font-size: 0.8rem; color: var(--slate-400); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- Table Styling --- */
+        .table-container {
+            background: var(--slate-800);
+            border-radius: 16px;
+            border: 1px solid var(--slate-700);
+            overflow: hidden;
+        }
+
         table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { padding: 15px 20px; font-size: 0.7rem; color: #475569; text-transform: uppercase; border-bottom: 1px solid var(--slate-800); }
-        td { padding: 15px 20px; border-bottom: 1px solid var(--slate-800); font-size: 0.85rem; }
-        
-        .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; }
-        .emas { background: rgba(16, 185, 129, 0.1); color: var(--emerald-500); }
-        .final { background: rgba(245, 158, 11, 0.1); color: var(--amber-500); }
+        th { background: #1e293b; padding: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--slate-400); border-bottom: 1px solid var(--slate-700); }
+        td { padding: 20px; border-bottom: 1px solid var(--slate-700); font-size: 0.9rem; }
 
-        @media (max-width: 768px) { body { flex-direction: column; } aside { width: 100%; } main { padding: 20px; } }
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-gold { background: rgba(16, 185, 129, 0.15); color: var(--emerald-500); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-pending { background: rgba(148, 163, 184, 0.1); color: var(--slate-400); border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .action-link {
+            color: var(--indigo-500);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: lowercase; 
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .action-link:hover { color: var(--indigo-600); }
+        .action-link::after { content: '→'; }
+
+        footer { margin-top: 60px; padding: 20px; border-top: 1px solid var(--slate-700); text-align: center; font-size: 0.8rem; color: var(--slate-600); }
+
+        /* --- Mobile Responsive Layout --- */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; padding: 24px; border-right: none; border-bottom: 1px solid var(--slate-700); }
+            .dev-profile { display: flex; align-items: center; text-align: left; margin-bottom: 20px; gap: 16px; }
+            .dev-avatar { width: 60px; height: 60px; font-size: 1.5rem; margin: 0; border-radius: 16px; }
+            .profile-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .profile-meta p { font-size: 0.75rem; margin: 0; }
+            main { padding: 30px 16px; }
+            header h1 { font-size: 1.8rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-value { font-size: 1.8rem; }
+
+            /* Tabel transform ke Card */
+            .table-container { border: none; background: transparent; }
+            table, thead, tbody, th, td, tr { display: block; }
+            thead { display: none; }
+            tr { background: var(--slate-800); margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--slate-700); padding: 16px; }
+            td { border: none; padding: 8px 0; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+            td::before { content: attr(data-label); font-weight: 600; color: var(--slate-400); text-transform: uppercase; font-size: 0.7rem; }
+            td:first-child { font-size: 1rem; color: #fff; display: block; margin-bottom: 10px; border-bottom: 1px solid var(--slate-700); padding-bottom: 12px; }
+            td:first-child::before { display: none; }
+        }
     </style>
 </head>
 <body>
 
     <aside>
-        <div class="avatar">FS</div>
-        <h2 style="font-size: 1.1rem; margin: 0;">Fadel Shafwan M.</h2>
-        <div class="sidebar-info">
-            <span class="label">Institution</span>
-            <span class="val">SMAS PGRI 3 Jakarta</span>
-            <span class="label">Class</span>
-            <span class="val">X.4 (2026)</span>
-            <span class="label">Specialist</span>
-            <span class="val">Security Researcher</span>
+        <div class="dev-profile">
+            <div class="dev-avatar">FS</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.2rem;">Fadel Shafwan M.</h3>
+                <p style="color: var(--indigo-500); font-size: 0.9rem; font-weight: 600; margin: 4px 0 0 0;">Full-Stack Developer</p>
+            </div>
+        </div>
+        <div class="profile-meta">
+            <p>INSTITUTION: <b>SMAS PGRI 3 Jakarta</b></p>
+            <p>CLASS: <b>X.4</b></p>
+            <p>TECH: <b>JS / Node.js / Security</b></p>
         </div>
     </aside>
 
     <main>
-        <h1>Achievement DB</h1>
+        <header>
+            <h1>Achievement Repository</h1>
+            <p>Production-ready database of national competitions.</p>
+        </header>
 
-        <input type="text" id="searchInput" placeholder="Search subject or competition...">
-
-        <div class="stats">
-            <div class="card">
-                <span class="label" style="margin:0">Gold Medals</span>
-                <div class="card-num" id="gold-count">0</div>
-                <div class="bar-bg"><div id="bar-fill" class="bar-fill"></div></div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="count-gold">0</div>
+                <div class="stat-label">Gold Medals</div>
             </div>
-            <div class="card">
-                <span class="label" style="margin:0">Total Records</span>
-                <div class="card-num" id="total-count">0</div>
-                <div style="font-size: 0.7rem; color: var(--emerald-500); margin-top: 10px; font-weight: 700;">● SYSTEM VERIFIED</div>
+            <div class="stat-card">
+                <div class="stat-value" id="count-total">0</div>
+                <div class="stat-label">Total Entries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2026</div>
+                <div class="stat-label">Current Session</div>
             </div>
         </div>
 
-        <div class="table-wrap">
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Competition</th>
-                        <th>Organizer</th>
+                        <th>Competition Name</th>
+                        <th>Host</th>
                         <th>Subject</th>
                         <th>Status</th>
+                        <th>Files</th>
                     </tr>
                 </thead>
-                <tbody id="table-body"></tbody>
+                <tbody id="render-target"></tbody>
             </table>
         </div>
+
+        <footer>
+            &copy; 2026 Fadel Shafwan Maliki. All rights reserved. // Data verified by RSCI & Puskanas.
+        </footer>
     </main>
 
     <script>
-        // DATABASE LENGKAP (Struktur bersih seperti awal)
-        const db = [
-            { name: "Ramadhan Science Competition (RSCI)", host: "Fosnas", sub: "Informatika", res: "Medali Emas" },
-            { name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", sub: "Informatika", res: "Medali Emas" },
-            { name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", sub: "Ekonomi", res: "Medali Emas" },
-            { name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", sub: "PPKN", res: "Medali Emas" },
-            { name: "National Science Competition (NSC)", host: "Puskanas", sub: "Informatika", res: "Medali Emas" },
-            { name: "National Science Competition (NSC)", host: "Puskanas", sub: "PPKN", res: "Medali Emas" },
-            { name: "Olimpiade Sains Muda (OSMI)", host: "Muda Sains", sub: "Informatika", res: "Medali Emas" },
-            { name: "Kompetisi Juara Indonesia (KJI)", host: "KJI", sub: "Biologi", res: "Medali Emas" },
-            { name: "Edu Expo Indonesia", host: "Edu Expo", sub: "Kimia", res: "Grand Finalist" }
+        const repository = [
+            { id: 1, name: "Ramadhan Science Competition Indonesia (RSCI) 2026", host: "Fosnas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1eztmI8LVAH0UOV_WnVB1RjkLmjBTwiT1/view?usp=drive_link" },
+            { id: 2, name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Ekonomi", result: "Medali Emas", link: "https://drive.google.com/file/d/1LMRLct-DOdGwMh6F1bHQMS-1yfU02pQr/view?usp=drive_link" },
+            { id: 3, name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "PPKN", result: "Medali Emas", link: "https://drive.google.com/file/d/1IoBjF9ho5bU-zgQRFivI_5ZNVGPF6R6I/view?usp=drive_link" },
+            { id: 4, name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Informatika", result: "Medali Emas", link: "https://drive.google.com/file/d/1Hd72RWn1hA8_EhKtoeVd5B4YK8XIt4w2/view?usp=drive_link" },
+            { id: 5, name: "National Science Competition (NSC)", host: "Puskanas", field: "PPKN", result: "Medali Emas", link: "https://app.puskanas.id" },
+            { id: 6, name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas", link: "https://app.puskanas.id" },
+            { id: 7, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "#" },
+            { id: 8, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas", link: "#" },
+            ...Array.from({length: 10}, (_, i) => ({
+                id: 9 + i, 
+                name: i < 5 ? "Future Science Competition (FSC)" : "Garuda National Academic", 
+                host: i < 5 ? "Yaspresnas" : "Lembaga Olimpiade", 
+                field: i % 2 === 0 ? "Matematika" : "Informatika", 
+                result: "In Queue", 
+                link: ""
+            }))
         ];
 
-        function render(data) {
-            const table = document.getElementById('table-body');
-            table.innerHTML = '';
-            
-            data.forEach(item => {
-                const isGold = item.res.includes("Emas");
-                const row = `<tr>
-                    <td style="font-weight: 700;">${item.name}</td>
-                    <td style="color: #64748b;">${item.host}</td>
-                    <td>${item.sub}</td>
-                    <td><span class="badge ${isGold ? 'emas' : 'final'}">${item.res}</span></td>
-                </tr>`;
-                table.insertAdjacentHTML('beforeend', row);
+        const renderTarget = document.getElementById('render-target');
+        
+        function initDashboard() {
+            repository.forEach(item => {
+                const isGold = item.result.includes("Emas");
+                const linkText = item.link ? "open link" : "--";
+                
+                const row = `
+                    <tr>
+                        <td style="font-weight: 600; color: #fff;">${item.name}</td>
+                        <td data-label="Host" style="color: var(--slate-400);">${item.host}</td>
+                        <td data-label="Subject">${item.field}</td>
+                        <td data-label="Status">
+                            <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">
+                                ${item.result}
+                            </span>
+                        </td>
+                        <td data-label="Action">
+                            ${item.link ? `<a href="${item.link}" target="_blank" class="action-link">${linkText}</a>` : '<span style="color: var(--slate-600);">--</span>'}
+                        </td>
+                    </tr>
+                `;
+                renderTarget.innerHTML += row;
             });
 
-            // Update Stats
-            const goldCount = db.filter(x => x.res.includes("Emas")).length;
-            document.getElementById('gold-count').innerText = goldCount;
-            document.getElementById('total-count').innerText = db.length;
-            document.getElementById('bar-fill').style.width = "100%";
+            document.getElementById('count-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
+            document.getElementById('count-total').innerText = repository.length;
         }
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            const filtered = db.filter(x => x.name.toLowerCase().includes(val) || x.sub.toLowerCase().includes(val));
-            render(filtered);
-        });
-
-        // Run
-        render(db);
-        console.log("FadelSM Repository: All systems nominal.");
+        initDashboard();
     </script>
 </body>
 </html>
