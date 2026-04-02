@@ -110,9 +110,21 @@
             font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            transition: color 0.2s;
         }
-        .action-link:hover { color: var(--indigo-600); }
+        .action-link:hover { color: var(--indigo-600); text-decoration: underline; }
+        
+        /* Gaya khusus untuk deteksi Drive */
+        .drive-icon {
+            font-size: 0.7rem;
+            background: #ffffff10;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffffff20;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
 
         footer { margin-top: 60px; padding: 20px; border-top: 1px solid var(--slate-700); text-align: center; font-size: 0.8rem; color: var(--slate-600); }
 
@@ -120,7 +132,6 @@
             body { flex-direction: column; }
             aside { width: 100%; padding: 24px; border-right: none; border-bottom: 1px solid var(--slate-700); }
             main { padding: 30px 16px; }
-            /* Mobile Table */
             table, thead, tbody, th, td, tr { display: block; }
             thead { display: none; }
             tr { background: var(--slate-800); margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--slate-700); padding: 16px; }
@@ -175,7 +186,7 @@
                         <th>Host</th>
                         <th>Subject</th>
                         <th>Status</th>
-                        <th>Files</th>
+                        <th>Certificate</th>
                     </tr>
                 </thead>
                 <tbody id="render-target"></tbody>
@@ -197,7 +208,7 @@
             { id: 6, name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas", link: "https://app.puskanas.id" },
             { id: 7, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "#" },
             { id: 8, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas", link: "#" },
-            // Data Perbaikan FSC & GARUDA
+            // Data FSC & GARUDA
             { id: 9, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Bahasa Indonesia", result: "Coming Soon", link: "" },
             { id: 10, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Bahasa Inggris", result: "Coming Soon", link: "" },
             { id: 11, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Matematika", result: "Coming Soon", link: "" },
@@ -211,6 +222,15 @@
 
         const renderTarget = document.getElementById('render-target');
         
+        // Logika Detector Link Drive
+        function getLinkLabel(url) {
+            if (!url || url === "#") return "view link →";
+            if (url.includes("drive.google.com")) {
+                return '<span class="drive-icon">Drive</span> cert →';
+            }
+            return "open link →";
+        }
+
         function initDashboard() {
             repository.forEach(item => {
                 const isGold = item.result.includes("Emas");
@@ -223,7 +243,9 @@
                             <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">${item.result}</span>
                         </td>
                         <td data-label="Action">
-                            ${item.link ? `<a href="${item.link}" target="_blank" class="action-link">view link →</a>` : '<span style="color: var(--slate-600);">--</span>'}
+                            ${item.link ? 
+                                `<a href="${item.link}" target="_blank" class="action-link">${getLinkLabel(item.link)}</a>` 
+                                : '<span style="color: var(--slate-600);">--</span>'}
                         </td>
                     </tr>
                 `;
