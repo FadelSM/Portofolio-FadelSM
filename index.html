@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevStack Portfolio | Fadel Shafwan Maliki</title>
+    <title>DevStack Portfolio v2.5 | Fadel Shafwan Maliki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
-        .profile-meta p { margin: 8px 0; font-size: 0.9rem; color: var(--slate-400); }
+        .profile-meta p { margin: 8px 0; font-size: 0.8rem; color: var(--slate-400); letter-spacing: 0.5px; }
         .profile-meta b { color: var(--text-main); }
 
         /* --- Main Content --- */
@@ -61,6 +61,31 @@
         header { margin-bottom: 40px; }
         header h1 { margin: 0 0 10px 0; font-size: 2.5rem; font-weight: 700; }
         header p { margin: 0; color: var(--slate-400); font-size: 1.1rem; }
+
+        /* --- Search Bar --- */
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 14px 20px;
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--indigo-500);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
 
         .stats-grid {
             display: grid;
@@ -78,7 +103,6 @@
             flex-direction: column;
             align-items: center; 
             justify-content: center;
-            text-align: center;
         }
 
         .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--indigo-500); line-height: 1; margin-bottom: 8px; }
@@ -95,6 +119,17 @@
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th { background: #1e293b; padding: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--slate-400); border-bottom: 1px solid var(--slate-700); }
         td { padding: 20px; border-bottom: 1px solid var(--slate-700); font-size: 0.9rem; }
+
+        /* Animation for rows */
+        tr.fade-in {
+            animation: slideUp 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .badge {
             display: inline-block;
@@ -117,7 +152,6 @@
             align-items: center;
             gap: 4px;
         }
-        .action-link:hover { color: var(--indigo-600); }
         .action-link::after { content: '→'; }
 
         footer { margin-top: 60px; padding: 20px; border-top: 1px solid var(--slate-700); text-align: center; font-size: 0.8rem; color: var(--slate-600); }
@@ -129,13 +163,10 @@
             .dev-profile { display: flex; align-items: center; text-align: left; margin-bottom: 20px; gap: 16px; }
             .dev-avatar { width: 60px; height: 60px; font-size: 1.5rem; margin: 0; border-radius: 16px; }
             .profile-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-            .profile-meta p { font-size: 0.75rem; margin: 0; }
             main { padding: 30px 16px; }
             header h1 { font-size: 1.8rem; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .stat-value { font-size: 1.8rem; }
-
-            /* Tabel transform ke Card */
+            
             .table-container { border: none; background: transparent; }
             table, thead, tbody, th, td, tr { display: block; }
             thead { display: none; }
@@ -169,6 +200,10 @@
             <h1>Achievement Repository</h1>
             <p>Production-ready database of national competitions.</p>
         </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name or subject (e.g. 'Informatika')...">
+        </div>
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -215,10 +250,10 @@
             { id: 6, name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas", link: "https://app.puskanas.id" },
             { id: 7, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "#" },
             { id: 8, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas", link: "#" },
-            ...Array.from({length: 10}, (_, i) => ({
+            ...Array.from({length: 8}, (_, i) => ({
                 id: 9 + i, 
-                name: i < 5 ? "Future Science Competition (FSC)" : "Garuda National Academic", 
-                host: i < 5 ? "Yaspresnas" : "Lembaga Olimpiade", 
+                name: i < 4 ? "Future Science Competition (FSC)" : "Garuda National Academic", 
+                host: i < 4 ? "Yaspresnas" : "Lembaga Olimpiade", 
                 field: i % 2 === 0 ? "Matematika" : "Informatika", 
                 result: "In Queue", 
                 link: ""
@@ -226,35 +261,51 @@
         ];
 
         const renderTarget = document.getElementById('render-target');
+        const searchInput = document.getElementById('searchInput');
         
-        function initDashboard() {
-            repository.forEach(item => {
+        function renderData(data) {
+            renderTarget.innerHTML = '';
+            data.forEach((item, index) => {
                 const isGold = item.result.includes("Emas");
                 const linkText = item.link ? "open link" : "--";
                 
-                const row = `
-                    <tr>
-                        <td style="font-weight: 600; color: #fff;">${item.name}</td>
-                        <td data-label="Host" style="color: var(--slate-400);">${item.host}</td>
-                        <td data-label="Subject">${item.field}</td>
-                        <td data-label="Status">
-                            <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">
-                                ${item.result}
-                            </span>
-                        </td>
-                        <td data-label="Action">
-                            ${item.link ? `<a href="${item.link}" target="_blank" class="action-link">${linkText}</a>` : '<span style="color: var(--slate-600);">--</span>'}
-                        </td>
-                    </tr>
+                const row = document.createElement('tr');
+                row.className = 'fade-in';
+                row.style.animationDelay = `${index * 0.05}s`; // Stagger effect
+                
+                row.innerHTML = `
+                    <td style="font-weight: 600; color: #fff;">${item.name}</td>
+                    <td data-label="Host" style="color: var(--slate-400);">${item.host}</td>
+                    <td data-label="Subject">${item.field}</td>
+                    <td data-label="Status">
+                        <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">
+                            ${item.result}
+                        </span>
+                    </td>
+                    <td data-label="Action">
+                        ${item.link && item.link !== '#' ? `<a href="${item.link}" target="_blank" class="action-link">${linkText}</a>` : '<span style="color: var(--slate-600);">--</span>'}
+                    </td>
                 `;
-                renderTarget.innerHTML += row;
+                renderTarget.appendChild(row);
             });
 
-            document.getElementById('count-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
-            document.getElementById('count-total').innerText = repository.length;
+            // Update Stats
+            document.getElementById('count-gold').innerText = data.filter(i => i.result.includes("Emas")).length;
+            document.getElementById('count-total').innerText = data.length;
         }
 
-        initDashboard();
+        // Live Search Logic
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = repository.filter(item => 
+                item.name.toLowerCase().includes(term) || 
+                item.field.toLowerCase().includes(term)
+            );
+            renderData(filtered);
+        });
+
+        // Initialize
+        renderData(repository);
     </script>
 </body>
 </html>
