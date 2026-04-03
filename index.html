@@ -58,15 +58,37 @@
         /* --- Main Content --- */
         main { flex: 1; padding: 60px; overflow-y: auto; box-sizing: border-box; width: 100%; }
 
-        header { margin-bottom: 40px; }
+        header { margin-bottom: 30px; }
         header h1 { margin: 0 0 10px 0; font-size: 2.5rem; font-weight: 700; }
         header p { margin: 0; color: var(--slate-400); font-size: 1.1rem; }
 
+        /* --- Search & Filter Bar --- */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            background: var(--slate-800);
+            border: 1px solid var(--slate-700);
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            outline: none;
+        }
+        .search-input:focus { border-color: var(--indigo-500); box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2); }
+
+        /* --- Stats Grid --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .stat-card {
@@ -91,6 +113,9 @@
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th { background: #1e293b; padding: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--slate-400); border-bottom: 1px solid var(--slate-700); }
         td { padding: 20px; border-bottom: 1px solid var(--slate-700); font-size: 0.9rem; }
+        
+        /* Row Hover Effect */
+        tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
 
         .badge {
             display: inline-block;
@@ -111,11 +136,9 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: color 0.2s;
         }
         .action-link:hover { color: var(--indigo-600); text-decoration: underline; }
         
-        /* Gaya khusus untuk deteksi Drive */
         .drive-icon {
             font-size: 0.7rem;
             background: #ffffff10;
@@ -123,7 +146,6 @@
             border-radius: 4px;
             border: 1px solid #ffffff20;
             font-weight: 700;
-            text-transform: uppercase;
         }
 
         footer { margin-top: 60px; padding: 20px; border-top: 1px solid var(--slate-700); text-align: center; font-size: 0.8rem; color: var(--slate-600); }
@@ -160,8 +182,12 @@
     <main>
         <header>
             <h1>Achievement Repository</h1>
-            <p>Production-ready database of national competitions.</p>
+            <p>Sistem database prestasi olimpiade sains nasional.</p>
         </header>
+
+        <div class="controls">
+            <input type="text" id="search-bar" class="search-input" placeholder="Cari nama kompetisi atau mata pelajaran...">
+        </div>
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -194,7 +220,7 @@
         </div>
 
         <footer>
-            &copy; 2026 Fadel Shafwan Maliki. All rights reserved. // Data verified by RSCI & Puskanas.
+            &copy; 2026 Fadel Shafwan Maliki. Terverifikasi oleh RSCI & Puskanas.
         </footer>
     </main>
 
@@ -208,31 +234,31 @@
             { id: 6, name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas", link: "https://app.puskanas.id" },
             { id: 7, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "https://drive.google.com/file/d/1-VxeLUvyW2mh7JPHzt27TXE7fY9GFbKW/view?usp=drive_link" },
             { id: 8, name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas", link: "https://drive.google.com/file/d/19BUdb6SMu5DhVRepPCQzS3q5NX5AH_bh/view?usp=drive_link" },
-            // Data FSC & GARUDA
-            { id: 9, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Bahasa Indonesia", result: "Coming Soon", link: "" },
-            { id: 10, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Bahasa Inggris", result: "Coming Soon", link: "" },
-            { id: 11, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Matematika", result: "Coming Soon", link: "" },
-            { id: 12, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Kimia", result: "Coming Soon", link: "" },
-            { id: 13, name: "Future Science Competition (FSC)", host: "Yaspresnas / Sentral", field: "Informatika", result: "Coming Soon", link: "" },
-            { id: 14, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "Lembaga Olimpiade Nasional / Sentral", field: "Matematika", result: "Coming Soon", link: "" },
-            { id: 15, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "Lembaga Olimpiade Nasional / Sentral", field: "Akuntansi", result: "Coming Soon", link: "" },
-            { id: 16, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "Lembaga Olimpiade Nasional / Sentral", field: "Geografi", result: "Coming Soon", link: "" },
-            { id: 17, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "Lembaga Olimpiade Nasional / Sentral", field: "Informatika", result: "Coming Soon", link: "" }
+            { id: 9, name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Indonesia", result: "Coming Soon", link: "" },
+            { id: 10, name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Inggris", result: "Coming Soon", link: "" },
+            { id: 11, name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Matematika", result: "Coming Soon", link: "" },
+            { id: 12, name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Kimia", result: "Coming Soon", link: "" },
+            { id: 13, name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Informatika", result: "Coming Soon", link: "" },
+            { id: 14, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "LON", field: "Matematika", result: "Coming Soon", link: "" },
+            { id: 15, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "LON", field: "Akuntansi", result: "Coming Soon", link: "" },
+            { id: 16, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "LON", field: "Geografi", result: "Coming Soon", link: "" },
+            { id: 17, name: "Generasi Unggul Dalam Akademik (GARUDA)", host: "LON", field: "Informatika", result: "Coming Soon", link: "" }
         ];
 
         const renderTarget = document.getElementById('render-target');
-        
-        // Logika Detector Link Drive
+        const searchBar = document.getElementById('search-bar');
+
         function getLinkLabel(url) {
-            if (!url || url === "#") return "view link →";
-            if (url.includes("drive.google.com")) {
-                return '<span class="drive-icon">Drive</span> cert →';
-            }
-            return "open link →";
+            if (!url) return "";
+            return url.includes("drive.google.com") 
+                ? '<span class="drive-icon">Drive</span> cert →' 
+                : "open link →";
         }
 
-        function initDashboard() {
-            repository.forEach(item => {
+        // Fungsi Render Utama
+        function displayData(data) {
+            renderTarget.innerHTML = "";
+            data.forEach(item => {
                 const isGold = item.result.includes("Emas");
                 const row = `
                     <tr>
@@ -243,15 +269,26 @@
                             <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">${item.result}</span>
                         </td>
                         <td data-label="Action">
-                            ${item.link ? 
-                                `<a href="${item.link}" target="_blank" class="action-link">${getLinkLabel(item.link)}</a>` 
-                                : '<span style="color: var(--slate-600);">--</span>'}
+                            ${item.link ? `<a href="${item.link}" target="_blank" class="action-link">${getLinkLabel(item.link)}</a>` : '<span style="color: var(--slate-600);">--</span>'}
                         </td>
                     </tr>
                 `;
                 renderTarget.innerHTML += row;
             });
+        }
 
+        // Logika Search
+        searchBar.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            const filtered = repository.filter(item => 
+                item.name.toLowerCase().includes(keyword) || 
+                item.field.toLowerCase().includes(keyword)
+            );
+            displayData(filtered);
+        });
+
+        function initDashboard() {
+            displayData(repository);
             document.getElementById('count-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
             document.getElementById('count-total').innerText = repository.length;
         }
