@@ -162,7 +162,14 @@
         .badge-gold { background: rgba(16, 185, 129, 0.1); color: var(--emerald-500); border: 1px solid rgba(16, 185, 129, 0.2); }
         .badge-pending { background: rgba(148, 163, 184, 0.1); color: var(--slate-400); border: 1px solid rgba(148, 163, 184, 0.1); }
 
-        .action-link { color: var(--indigo-500); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+        /* Tampilan link di nama kompetisi */
+        .comp-link { 
+            color: #fff; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: color 0.2s;
+        }
+        .comp-link:hover { color: var(--indigo-500); }
         
         footer { margin-top: 60px; padding: 20px; border-top: 1px solid var(--slate-700); text-align: center; font-size: 0.8rem; color: var(--slate-600); }
 
@@ -234,7 +241,6 @@
                         <th>Host</th>
                         <th>Subject</th>
                         <th>Status</th>
-                        <th>Document</th>
                     </tr>
                 </thead>
                 <tbody id="render-target"></tbody>
@@ -271,21 +277,21 @@
         const searchBar = document.getElementById('search-bar');
 
         function displayData(data) {
-            renderTarget.innerHTML = data.length ? "" : '<tr><td colspan="5" style="text-align:center; padding:50px; color:#666;">Data tidak ditemukan...</td></tr>';
+            renderTarget.innerHTML = data.length ? "" : '<tr><td colspan="4" style="text-align:center; padding:50px; color:#666;">Data tidak ditemukan...</td></tr>';
             
             data.forEach((item, index) => {
                 const isGold = item.result.includes("Emas");
+                const hasLink = item.link && item.link !== "#";
+                
                 const row = `
                     <tr style="animation: fadeIn 0.4s ease forwards ${index * 0.05}s; opacity: 0;">
-                        <td style="font-weight: 600; color: #fff;">${item.name}</td>
+                        <td>
+                            ${hasLink ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="comp-link">${item.name}</a>` : item.name}
+                        </td>
                         <td>${item.host}</td>
                         <td>${item.field}</td>
                         <td>
                             <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">${item.result}</span>
-                        </td>
-                        <td>
-                            ${item.link && item.link !== "#" ? 
-                                `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="action-link">Lihat File</a>` : '<span style="color: var(--slate-600);">--</span>'}
                         </td>
                     </tr>
                 `;
