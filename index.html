@@ -48,6 +48,10 @@
         }
 
         .dev-profile { text-align: center; margin-bottom: 50px; }
+        
+        /* Avatar Link */
+        .avatar-link { text-decoration: none; display: inline-block; }
+        
         .dev-avatar { 
             width: 88px; height: 88px; 
             background: var(--indigo-500); 
@@ -56,9 +60,25 @@
             display: flex; align-items: center; justify-content: center; 
             font-weight: 700; font-size: 2.5rem; color: #fff;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .dev-avatar:hover { transform: scale(1.05) rotate(3deg); }
+        .dev-avatar:hover { transform: scale(1.08) rotate(5deg); box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4); }
+
+        .insta-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            padding: 6px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.2s;
+        }
+        .insta-tag:hover { color: var(--indigo-500); background: rgba(99, 102, 241, 0.1); }
 
         .profile-meta p { margin: 12px 0; font-size: 0.85rem; color: var(--slate-400); line-height: 1.4; }
         .profile-meta b { color: var(--text-main); display: block; font-size: 0.95rem; }
@@ -160,10 +180,16 @@
 
     <aside>
         <div class="dev-profile">
-            <div class="dev-avatar">FS</div>
+            <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" rel="noopener noreferrer" class="avatar-link">
+                <div class="dev-avatar">FS</div>
+            </a>
             <div>
                 <h3 style="margin: 0; font-size: 1.2rem;">Fadel Shafwan M.</h3>
                 <p style="color: var(--indigo-500); font-size: 0.9rem; font-weight: 600; margin: 4px 0 0 0;">Full-Stack Developer</p>
+                
+                <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" rel="noopener noreferrer" class="insta-tag">
+                    <span>📸 @fadelshafwanmaliki</span>
+                </a>
             </div>
         </div>
         <div class="profile-meta">
@@ -247,7 +273,6 @@
                 const isGold = item.result.includes("Emas");
                 const isDrive = item.link.includes("drive.google.com");
                 
-                // Menambahkan delay animasi per baris
                 const row = `
                     <tr style="animation: fadeIn 0.4s ease forwards ${index * 0.05}s; opacity: 0;">
                         <td style="font-weight: 600; color: #fff;">${item.name}</td>
@@ -257,7 +282,7 @@
                             <span class="badge ${isGold ? 'badge-gold' : 'badge-pending'}">${item.result}</span>
                         </td>
                         <td>
-                            ${item.link ? 
+                            ${item.link && item.link !== "#" ? 
                                 `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="action-link">
                                     ${isDrive ? '<span class="drive-icon">DRIVE</span>' : ''}Lihat File
                                 </a>` : '<span style="color: var(--slate-600);">--</span>'}
