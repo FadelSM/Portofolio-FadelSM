@@ -19,14 +19,24 @@
             --slate-400: #94a3b8;
             --indigo-500: #6366f1;
             --indigo-600: #4f46e5;
-            --emerald-500: #10b981;
-            --amber-500: #f59e0b; /* Warna untuk Perak */
+            
+            /* Warna Badge Baru */
+            --gold-color: #fbbf24;    /* Kuning Emas */
+            --silver-color: #cbd5e1;  /* Abu Perak */
+            --coming-color: #94a3b8;  /* Warna Standar */
+            
             --text-main: #f1f5f9;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         @keyframes gradientBorder {
@@ -55,7 +65,10 @@
             box-sizing: border-box;
         }
 
-        .dev-profile { text-align: center; margin-bottom: 30px; }
+        .dev-profile { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
         
         .dev-avatar { 
             width: 90px; height: 90px; 
@@ -104,7 +117,12 @@
             letter-spacing: normal;
         }
 
-        .social-links { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .social-links { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 20px; 
+        }
         
         .btn-social {
             display: flex;
@@ -176,11 +194,29 @@
         tbody tr { transition: background 0.2s; }
         tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
 
-        /* Status Badges */
-        .badge { display: inline-block; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; }
-        .badge-gold { background: rgba(16, 185, 129, 0.1); color: var(--emerald-500); border: 1px solid rgba(16, 185, 129, 0.2); }
-        .badge-silver { background: rgba(245, 158, 11, 0.1); color: var(--amber-500); border: 1px solid rgba(245, 158, 11, 0.2); }
-        .badge-pending { background: rgba(148, 163, 184, 0.1); color: var(--slate-400); border: 1px solid rgba(148, 163, 184, 0.1); }
+        /* Status Badges Berdasarkan Request */
+        .badge { 
+            display: inline-block; 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+        }
+        .badge-gold { 
+            background: rgba(251, 191, 36, 0.15); 
+            color: var(--gold-color); 
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+        }
+        .badge-silver { 
+            background: rgba(203, 213, 225, 0.15); 
+            color: var(--silver-color); 
+            border: 1px solid rgba(203, 213, 225, 0.3); 
+        }
+        .badge-pending { 
+            background: rgba(148, 163, 184, 0.1); 
+            color: var(--coming-color); 
+            border: 1px solid rgba(148, 163, 184, 0.1); 
+        }
 
         .comp-link { 
             color: #fff; 
@@ -196,12 +232,6 @@
             body { flex-direction: column; }
             aside { width: 100%; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--slate-700); }
             main { padding: 30px 20px; }
-            .search-input {
-                max-width: 100%;
-                padding: 10px 14px;
-                font-size: 0.9rem;
-                margin-bottom: 20px;
-            }
             header h1 { font-size: 1.8rem; }
         }
     </style>
@@ -263,7 +293,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
+                        <th style="width: 120px;">Date</th>
                         <th>Competition Name</th>
                         <th>Host</th>
                         <th>Subject</th>
@@ -310,18 +340,20 @@
             renderTarget.innerHTML = data.length ? "" : '<tr><td colspan="5" style="text-align:center; padding:50px; color:#666;">Data tidak ditemukan...</td></tr>';
             
             data.forEach((item, index) => {
-                const isGold = item.result.includes("Emas");
-                const isSilver = item.result.includes("Perak");
-                const hasLink = item.link && item.link !== "#";
-                
-                // Tentukan kelas badge
+                const res = item.result.toLowerCase();
                 let badgeClass = "badge-pending";
-                if (isGold) badgeClass = "badge-gold";
-                else if (isSilver) badgeClass = "badge-silver";
+
+                if (res.includes("emas")) {
+                    badgeClass = "badge-gold";
+                } else if (res.includes("perak")) {
+                    badgeClass = "badge-silver";
+                }
+
+                const hasLink = item.link && item.link !== "#";
 
                 const row = `
                     <tr style="animation: fadeIn 0.4s ease forwards ${index * 0.05}s; opacity: 0;">
-                        <td style="color: var(--slate-400); font-size: 0.8rem;">${item.date}</td>
+                        <td style="color: var(--slate-400); font-size: 0.8rem; font-weight: 600;">${item.date}</td>
                         <td>
                             ${hasLink ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="comp-link">${item.name}</a>` : item.name}
                         </td>
