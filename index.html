@@ -329,13 +329,13 @@
             { id: 11, date: "05 Apr 2026", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Matematika", result: "Medali Perak", link: "#" },
             { id: 12, date: "05 Apr 2026", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Kimia", result: "Medali Perak", link: "#" },
             { id: 13, date: "05 Apr 2026", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Informatika", result: "Medali Perak", link: "#" },
-            { id: 14, date: "19 Apr 2026 14.00", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
-            { id: 15, date: "19 Apr 2026 11.00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "Biologi", result: "Coming Soon", link: "#" },
-            { id: 16, date: "19 Apr 2026 16.00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "PPKN", result: "Coming Soon", link: "#" },
-            { id: 17, date: "24 Mei 2026 15.00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" },
-            { id: 18, date: "24 Mei 2026 14.00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Geografi", result: "Coming Soon", link: "#" },
-            { id: 19, date: "26 Apr 2026 09.00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Ekonomi", result: "Coming Soon", link: "#" },
-            { id: 20, date: "26 Apr 2026 14.00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Informatika", result: "Coming Soon", link: "#" }
+            { id: 14, date: "19 Apr 2026 14:00", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
+            { id: 15, date: "19 Apr 2026 11:00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "Biologi", result: "Coming Soon", link: "#" },
+            { id: 16, date: "19 Apr 2026 16:00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "PPKN", result: "Coming Soon", link: "#" },
+            { id: 17, date: "24 Mei 2026 15:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" },
+            { id: 18, date: "24 Mei 2026 14:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Geografi", result: "Coming Soon", link: "#" },
+            { id: 19, date: "26 Apr 2026 09:00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Ekonomi", result: "Coming Soon", link: "#" },
+            { id: 20, date: "26 Apr 2026 14:00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Informatika", result: "Coming Soon", link: "#" }
         ];
 
         const renderTarget = document.getElementById('render-target');
@@ -348,23 +348,32 @@
         const res = item.result.toLowerCase();
         let badgeClass = "badge-pending";
         let displayResult = item.result;
+        let countdownId = `timer-${item.id}`;
 
         if (res.includes("coming soon")) {
-            // Mengambil waktu dari string date (contoh: "19 Apr 2026 08:00")
-            const eventDate = new Date(item.date).getTime();
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+            // Tempatkan ID khusus untuk target hitung mundur
+            displayResult = `<span id="${countdownId}">Menghitung...</span>`;
+            
+            // Jalankan fungsi hitung mundur
+            setInterval(() => {
+                const eventDate = new Date(item.date).getTime();
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+                const timerElement = document.getElementById(countdownId);
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                
-                // Menampilkan Hari, Jam, dan Menit
-                displayResult = `⏳ ${days}h ${hours}j ${minutes}m`;
-            } else {
-                displayResult = "Sedang Berlangsung / Selesai";
-            }
+                if (timerElement) {
+                    if (distance > 0) {
+                        const h = Math.floor((distance / (1000 * 60 * 60))); // Total jam
+                        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const s = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                        // Format: 23h 45m 22s
+                        timerElement.innerHTML = `⏳ ${h}h ${m}m ${s}s`;
+                    } else {
+                        timerElement.innerHTML = "Selesai/Berlangsung";
+                    }
+                }
+            }, 1000);
         }
 
         if (res.includes("emas")) {
@@ -401,12 +410,12 @@
         });
 
         function initDashboard() {
-            displayData(repository);
-            document.getElementById('count-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
-            document.getElementById('count-total').innerText = repository.length;
-        }
+    displayData(repository);
+    document.getElementById('count-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
+    document.getElementById('count-total').innerText = repository.length;
+}
 
-        initDashboard();
+initDashboard();
     </script>
 </body>
 </html>
