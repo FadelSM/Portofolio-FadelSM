@@ -23,574 +23,400 @@
     <meta name="google-site-verification" content="google-site-verification=CzAa8t4_eeF1u4-09e6fm_fQmkFzFrQ6xm4_SsRsjLA" />
     
     <title>Portfolio | Fadel Shafwan Maliki</title>
-    <meta name="description" content="Achievement Repository - Fadel Shafwan Maliki. Database sertifikasi dan medali olimpiade nasional.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            --slate-950: #020617;
             --slate-900: #0f172a;
             --slate-800: #1e293b;
             --slate-700: #334155;
-            --slate-600: #475569;
             --slate-400: #94a3b8;
             --indigo-500: #6366f1;
-            --indigo-600: #4f46e5;
-            --gold-color: #fbbf24;
-            --silver-color: #cbd5e1;
-            --coming-color: #94a3b8;
-            --text-main: #f1f5f9;
             --white: #ffffff;
+            --gold: #fbbf24;
+            --silver: #cbd5e1;
+            --red-timer: #fb7185;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(15px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        @keyframes gradientBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--slate-900);
-            color: var(--text-main);
+            background-color: var(--slate-950);
+            color: var(--white);
             font-family: 'Inter', sans-serif;
             display: flex;
             min-height: 100vh;
-            line-height: 1.6;
         }
 
+        /* --- SIDEBAR AREA --- */
         aside {
             width: 320px;
-            background: linear-gradient(180deg, var(--slate-800) 0%, var(--slate-900) 100%);
-            border-right: 1px solid var(--slate-700);
-            padding: 50px 30px;
+            background: linear-gradient(180deg, var(--slate-900) 0%, var(--slate-950) 100%);
+            border-right: 1px solid var(--slate-800);
+            padding: 60px 35px;
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
         }
 
-        .dev-profile {
+        .profile-container {
             text-align: center;
             margin-bottom: 40px;
         }
-        
-        .dev-avatar { 
-            width: 110px; 
-            height: 110px; 
-            border-radius: 30px;
-            margin: 0 auto 25px; 
-            overflow: hidden;
+
+        .avatar-frame {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            padding: 4px;
+            background: linear-gradient(45deg, #6366f1, #a855f7, #ec4899);
+            border-radius: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
-            background: linear-gradient(45deg, #f06, #f90, #ff0, #0f9, #0cf, #c0f, #f06);
-            background-size: 400% 400%;
-            animation: gradientBorder 5s ease infinite;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            animation: pulse-border 3s ease-in-out infinite;
         }
 
-        .dev-avatar img {
+        @keyframes pulse-border {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .avatar-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 26px;
+            border-radius: 31px;
             background: var(--slate-900);
         }
 
-        .dev-avatar:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .dev-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 5px;
-        }
-
-        .dev-role {
-            font-size: 0.85rem;
-            color: var(--indigo-500);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .profile-meta {
+        .meta-list {
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            margin-top: 25px;
+            gap: 20px;
         }
 
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-            border-left: 2px solid var(--slate-700);
-            padding-left: 15px;
+        .meta-box {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 12px 15px;
+            border-radius: 12px;
+            border-left: 3px solid var(--indigo-500);
         }
 
-        .meta-label {
+        .meta-box label {
+            display: block;
             font-size: 0.65rem;
             color: var(--slate-400);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 2px;
+            font-weight: 800;
         }
 
-        .meta-value {
+        .meta-box span {
             font-size: 0.95rem;
-            color: var(--white);
             font-weight: 600;
         }
 
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 40px;
-        }
-
-        .btn-social {
+        .btn-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            color: var(--white);
+            padding: 14px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 0.9rem;
+            color: white;
             font-weight: 700;
-            padding: 15px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            margin-top: 15px;
+            transition: 0.3s;
         }
 
-        .btn-instagram {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
+        .btn-ig { background: #d62976; }
+        .btn-tt { background: #000; border: 1px solid var(--slate-700); }
+        .btn-link:hover { transform: translateY(-3px); opacity: 0.9; }
 
-        .btn-tiktok {
-            background: #000000;
-            border: 1px solid var(--slate-700);
-        }
-
-        .btn-social:hover {
-            transform: translateY(-4px);
-            filter: contrast(1.2);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-        }
-
+        /* --- MAIN CONTENT AREA --- */
         main {
             flex: 1;
             padding: 80px 60px;
-            overflow-y: auto;
-            width: 100%;
         }
 
-        header {
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: var(--slate-400);
-            max-width: 600px;
-        }
-
-        .search-container {
-            margin-bottom: 45px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            max-width: 500px;
-            background: var(--slate-800);
-            border: 2px solid var(--slate-700);
-            padding: 18px 25px;
-            border-radius: 18px;
-            color: var(--white);
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            border-color: var(--indigo-500);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
+        .header-section {
             margin-bottom: 60px;
         }
 
-        .stat-card {
-            background: var(--slate-800);
-            padding: 35px;
-            border-radius: 24px;
-            border: 1px solid var(--slate-700);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--indigo-500);
-        }
-
-        .stat-value {
+        .header-section h1 {
             font-size: 3.5rem;
             font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            color: var(--slate-400);
+            font-size: 1.1rem;
+        }
+
+        .timezone-info {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
             color: var(--indigo-500);
-            line-height: 1;
+            font-weight: 600;
+        }
+
+        .search-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            background: var(--slate-900);
+            border: 2px solid var(--slate-800);
+            padding: 18px 24px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-bar:focus { border-color: var(--indigo-500); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--slate-900);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--slate-800);
+            text-align: center;
+        }
+
+        .card h2 { font-size: 3rem; color: var(--indigo-500); }
+        .card p { font-size: 0.8rem; color: var(--slate-400); font-weight: 700; text-transform: uppercase; }
+
+        /* --- TABLE AREA --- */
+        .table-box {
+            background: var(--slate-900);
+            border-radius: 24px;
+            border: 1px solid var(--slate-800);
+            overflow: hidden;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { padding: 25px; text-align: left; font-size: 0.75rem; color: var(--slate-400); border-bottom: 1px solid var(--slate-800); }
+        td { padding: 30px 25px; border-bottom: 1px solid var(--slate-800); }
+
+        .lomba-title {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: block;
             margin-bottom: 12px;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--slate-400);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .table-container {
-            background: var(--slate-800);
-            border-radius: 24px;
-            border: 1px solid var(--slate-700);
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th {
-            background: rgba(15, 23, 42, 0.5);
-            padding: 25px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--slate-400);
-            border-bottom: 1px solid var(--slate-700);
-        }
-
-        td {
-            padding: 30px 25px;
-            border-bottom: 1px solid var(--slate-700);
-            vertical-align: top;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comp-link {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.15rem;
-            display: inline-block;
-            margin-bottom: 10px;
-            transition: all 0.2s;
-        }
-
-        .comp-link:hover {
-            color: var(--indigo-500);
-            text-decoration: underline;
-        }
-
-        .vertical-info {
+        .info-vertical {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            font-size: 0.9rem;
+            gap: 5px;
+            font-size: 0.85rem;
             color: var(--slate-400);
-        }
-
-        .info-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-label {
-            font-weight: 700;
-            color: var(--slate-600);
-            min-width: 120px;
         }
 
         .badge {
             display: inline-block;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 800;
             margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 800;
         }
 
-        .badge-gold {
-            background: rgba(251, 191, 36, 0.1);
-            color: var(--gold-color);
-            border: 1px solid rgba(251, 191, 36, 0.4);
-        }
+        .gold { background: rgba(251, 191, 36, 0.1); color: var(--gold); border: 1px solid var(--gold); }
+        .coming { background: rgba(99, 102, 241, 0.1); color: var(--indigo-500); border: 1px solid var(--indigo-500); }
 
-        .badge-silver {
-            background: rgba(203, 213, 225, 0.1);
-            color: var(--silver-color);
-            border: 1px solid rgba(203, 213, 225, 0.4);
-        }
-
-        .badge-coming {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--indigo-500);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-        }
-
-        .countdown-timer {
-            font-size: 0.85rem;
+        .timer-box {
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: #f87171;
-            margin-top: 10px;
-            background: rgba(248, 113, 113, 0.1);
-            padding: 6px 12px;
+            color: var(--red-timer);
+            background: rgba(251, 113, 129, 0.1);
+            padding: 8px 12px;
             border-radius: 8px;
             display: inline-block;
         }
 
         footer {
             margin-top: 100px;
-            padding: 60px 20px;
-            border-top: 1px solid var(--slate-700);
+            padding: 40px;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-text {
-            color: var(--slate-600);
-            font-size: 0.9rem;
-            line-height: 1.8;
+            border-top: 1px solid var(--slate-800);
+            color: var(--slate-700);
+            font-size: 0.8rem;
         }
 
         @media (max-width: 1024px) {
             body { flex-direction: column; }
-            aside { width: 100%; padding: 40px; }
-            main { padding: 40px 25px; }
+            aside { width: 100%; height: auto; position: relative; }
+            main { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KG8693GC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
     <aside>
-        <div class="dev-profile">
-            <div class="dev-avatar">
-                <img src="https://files.catbox.moe/cwu6d7.png" alt="Fadel Shafwan Maliki">
-            </div>
-            <h3 class="dev-name">Fadel Shafwan Maliki</h3>
-            <p class="dev-role">Full-Stack Developer</p>
+        <div class="profile-container">
+            <div class="avatar-frame"><img src="https://files.catbox.moe/cwu6d7.png" alt="Fadel"></div>
+            <h3 style="font-size:1.4rem">Fadel Shafwan Maliki</h3>
+            <p style="color:var(--indigo-500); font-size:0.8rem; font-weight:700">SOFTWARE ENGINEER</p>
         </div>
         
-        <div class="profile-meta">
-            <div class="meta-item">
-                <span class="meta-label">Institusi Pendidikan</span>
-                <span class="meta-value">SMA PGRI 3 Jakarta</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Kelas / Angkatan</span>
-                <span class="meta-value">X.4 / 2026</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Tempat Lahir</span>
-                <span class="meta-value">Jakarta, 11 Juni 2009</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Posisi Keluarga</span>
-                <span class="meta-value">Anak Bungsu</span>
-            </div>
+        <div class="meta-list">
+            <div class="meta-box"><label>Sekolah</label><span>SMA PGRI 3 Jakarta</span></div>
+            <div class="meta-box"><label>Kelas</label><span>X.4 (Sepuluh)</span></div>
+            <div class="meta-box"><label>Status</label><span>Anak Bungsu</span></div>
         </div>
-        
-        <div class="social-links">
-            <a href="https://www.instagram.com/fadelshafwanmaliki" target="_blank" rel="noopener noreferrer" class="btn-social btn-instagram">
-                Follow Instagram
-            </a>
-            <a href="https://www.tiktok.com/@fadelshafwan" target="_blank" rel="noopener noreferrer" class="btn-social btn-tiktok">
-                Follow TikTok
-            </a>
-        </div>
+
+        <a href="https://instagram.com/fadelshafwanmaliki" class="btn-link btn-ig">Instagram</a>
+        <a href="https://tiktok.com/@fadelshafwan" class="btn-link btn-tt">TikTok</a>
     </aside>
 
     <main>
-        <header>
-            <h1>Achievement Repository</h1>
-            <p>Database komprehensif medali, sertifikat, dan jadwal olimpiade nasional yang diikuti oleh Fadel Shafwan Maliki.</p>
+        <header class="header-section">
+            <h1>Achievement</h1>
+            <p>Database prestasi akademik & kompetisi nasional.</p>
+            <div id="user-tz" class="timezone-info">Mendeteksi Zona Waktu...</div>
         </header>
 
-        <div class="search-container">
-            <input type="text" id="search-engine" class="search-input" placeholder="Filter berdasarkan nama lomba atau mata pelajaran...">
+        <div class="search-wrapper">
+            <input type="text" id="search" class="search-bar" placeholder="Cari nama lomba...">
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value" id="total-gold">0</div>
-                <div class="stat-label">Medali Emas</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="total-participation">0</div>
-                <div class="stat-label">Total Lomba</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">2026</div>
-                <div class="stat-label">Tahun Aktif</div>
-            </div>
+        <div class="dashboard-grid">
+            <div class="card"><h2 id="count-gold">0</h2><p>Medali Emas</p></div>
+            <div class="card"><h2 id="count-total">0</h2><p>Total Lomba</p></div>
         </div>
 
-        <div class="table-container">
+        <div class="table-box">
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 150px;">Tanggal</th>
-                        <th>Detail Kompetisi & Hasil</th>
+                        <th style="width:140px">Timeline</th>
+                        <th>Detail Kompetisi</th>
                     </tr>
                 </thead>
-                <tbody id="data-display">
-                    </tbody>
+                <tbody id="render-target"></tbody>
             </table>
         </div>
 
         <footer>
-            <div class="footer-content">
-                <p class="footer-text">
-                    &copy; 2026 Fadel Shafwan Maliki. Seluruh hak cipta dilindungi undang-undang. <br>
-                    Dikembangkan dengan fokus pada akurasi data dan performa tinggi. <br>
-                    Cyber Security Specialist | Software Engineer Enthusiast.
-                </p>
-            </div>
+            &copy; 2026 Fadel Shafwan Maliki. Dibuat dengan presisi tinggi.<br>
+            Waktu lokal Anda digunakan untuk sinkronisasi hitung mundur.
         </footer>
     </main>
 
     <script>
         /**
-         * FULL DATABASE - 20 ITEMS
+         * DATABASE LENGKAP
          */
-        const repository = [
-            { id: 1, date: "2026-03-01", name: "Ramadhan Science Competition Indonesia (RSCI) 2026", host: "Fosnas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1eztmI8LVAH0UOV_WnVB1RjkLmjBTwiT1/view" },
-            { id: 2, date: "2026-03-15", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Ekonomi", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1LMRLct-DOdGwMh6F1bHQMS-1yfU02pQr/view" },
-            { id: 3, date: "2026-03-15", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "PPKN", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1IoBjF9ho5bU-zgQRFivI_5ZNVGPF6R6I/view" },
-            { id: 4, date: "2026-03-15", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1Hd72RWn1hA8_EhKtoeVd5B4YK8XIt4w2/view" },
-            { id: 5, date: "2026-03-29", name: "National Science Competition (NSC)", host: "Puskanas", field: "PPKN", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1Dwf8cW6rfS8C3hk5KHl85QThNOruQAlH/view" },
-            { id: 6, date: "2026-03-29", name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1OJSE8bk_muhpFrXfmNyrk-kWHnOx8X6F/view" },
-            { id: 7, date: "2026-03-29", name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "https://drive.google.com/file/d/1-VxeLUvyW2mh7JPHzt27TXE7fY9GFbKW/view" },
-            { id: 8, date: "2026-03-29", name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/19BUdb6SMu5DhVRepPCQzS3q5NX5AH_bh/view" },
-            { id: 9, date: "2026-04-05", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Indonesia", result: "Medali Perak", link: "#" },
-            { id: 10, date: "2026-04-05", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Inggris", result: "Medali Emas (A+)", link: "#" },
-            { id: 11, date: "2026-04-05", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Matematika", result: "Medali Perak", link: "#" },
-            { id: 12, date: "2026-04-05", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Kimia", result: "Medali Perak", link: "#" },
-            { id: 13, date: "2026-04-05", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Informatika", result: "Medali Perak", link: "#" },
-            { id: 14, date: "2026-04-19", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
-            { id: 15, date: "2026-04-19", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "Biologi", result: "Coming Soon", link: "#" },
-            { id: 16, date: "2026-04-19", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "PPKN", result: "Coming Soon", link: "#" },
-            { id: 17, date: "2026-05-24", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" },
-            { id: 18, date: "2026-05-24", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Geografi", result: "Coming Soon", link: "#" },
-            { id: 19, date: "2026-04-26", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Ekonomi", result: "Coming Soon", link: "#" },
-            { id: 20, date: "2026-04-26", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Informatika", result: "Coming Soon", link: "#" }
+        const db = [
+            { id: 1, date: "2026-03-01T08:00:00", name: "Ramadhan Science Competition Indonesia (RSCI)", host: "Fosnas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1eztmI8LVAH0UOV_WnVB1RjkLmjBTwiT1/view" },
+            { id: 2, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Ekonomi", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1LMRLct-DOdGwMh6F1bHQMS-1yfU02pQr/view" },
+            { id: 3, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "PPKN", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1IoBjF9ho5bU-zgQRFivI_5ZNVGPF6R6I/view" },
+            { id: 4, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1Hd72RWn1hA8_EhKtoeVd5B4YK8XIt4w2/view" },
+            { id: 14, date: "2026-04-19T08:00:00", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
+            { id: 17, date: "2026-05-24T09:00:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" }
         ];
 
-        function getCountdown(date) {
-            const target = new Date(date).getTime();
-            const now = new Date().getTime();
-            const diff = target - now;
-            if (diff <= 0) return "Kompetisi Sedang/Sudah Berlangsung";
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            return `⏳ Dimulai dalam ${d} hari lagi`;
-        }
+        // 1. Deteksi Timezone Pengunjung
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('user-tz').innerText = `Zona Waktu Anda: ${userTimezone}`;
 
-        function renderTable(filter = "") {
-            const container = document.getElementById('data-display');
-            container.innerHTML = "";
-            
-            const filtered = repository.filter(item => 
-                item.name.toLowerCase().includes(filter.toLowerCase()) || 
-                item.field.toLowerCase().includes(filter.toLowerCase())
-            );
+        /**
+         * 2. Fungsi Hitung Mundur Real-Time sesuai daerah
+         */
+        function updateCountdowns() {
+            const timers = document.querySelectorAll('.dynamic-timer');
+            timers.forEach(timer => {
+                const targetDate = new Date(timer.dataset.date).getTime();
+                const now = new Date().getTime();
+                const distance = targetDate - now;
 
-            filtered.forEach((item, index) => {
-                const isComing = item.result.includes("Coming");
-                const badgeClass = item.result.includes("Emas") ? "badge-gold" : isComing ? "badge-coming" : "badge-silver";
-                
-                const row = document.createElement('tr');
-                row.style.animation = `fadeIn 0.5s ease forwards ${index * 0.05}s`;
-                row.style.opacity = "0";
-
-                row.innerHTML = `
-                    <td style="color: var(--slate-400); font-weight: 600; font-size: 0.85rem;">
-                        ${new Date(item.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}
-                    </td>
-                    <td>
-                        <a href="${item.link}" target="_blank" class="comp-link">${item.name}</a>
-                        <div class="vertical-info">
-                            <div class="info-row"><span class="info-label">Penyelenggara:</span><span>${item.host}</span></div>
-                            <div class="info-row"><span class="info-label">Bidang Studi:</span><span>${item.field}</span></div>
-                        </div>
-                        <span class="badge ${badgeClass}">${item.result}</span>
-                        ${isComing ? `<br><span class="countdown-timer">${getCountdown(item.date)}</span>` : ""}
-                    </td>
-                `;
-                container.appendChild(row);
+                if (distance < 0) {
+                    timer.innerText = "Kompetisi Dimulai!";
+                    timer.style.color = "#4ade80";
+                } else {
+                    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((distance % (1000 * 60)) / 1000);
+                    timer.innerText = `⏳ ${d}h ${h}m ${m}s ${s}s`;
+                }
             });
         }
 
-        document.getElementById('search-engine').addEventListener('input', (e) => {
-            renderTable(e.target.value);
-        });
+        /**
+         * 3. Fungsi Render Utama
+         */
+        function render(filter = "") {
+            const target = document.getElementById('render-target');
+            target.innerHTML = "";
+            
+            const filtered = db.filter(i => i.name.toLowerCase().includes(filter.toLowerCase()));
 
+            filtered.forEach(item => {
+                const isComing = item.result === "Coming Soon";
+                const badge = item.result.includes("Emas") ? "gold" : isComing ? "coming" : "silver";
+                const dateView = new Date(item.date).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+
+                target.innerHTML += `
+                    <tr>
+                        <td style="font-size:0.8rem; color:var(--slate-400); font-weight:600">${dateView}</td>
+                        <td>
+                            <a href="${item.link}" class="lomba-title" target="_blank">${item.name}</a>
+                            <div class="info-vertical">
+                                <span><b>Penyelenggara:</b> ${item.host}</span>
+                                <span><b>Bidang:</b> ${item.field}</span>
+                            </div>
+                            <span class="badge ${badge}">${item.result}</span>
+                            ${isComing ? `<br><div class="timer-box dynamic-timer" data-date="${item.date}">Menghitung...</div>` : ""}
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        // Jalankan Script
         window.onload = () => {
-            renderTable();
-            document.getElementById('total-gold').innerText = repository.filter(i => i.result.includes("Emas")).length;
-            document.getElementById('total-participation').innerText = repository.length;
+            render();
+            document.getElementById('count-gold').innerText = db.filter(i => i.result.includes("Emas")).length;
+            document.getElementById('count-total').innerText = db.length;
+            
+            // Update timer setiap 1 detik
+            setInterval(updateCountdowns, 1000);
+            
+            document.getElementById('search').oninput = (e) => render(e.target.value);
         };
     </script>
 </body>
