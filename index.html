@@ -26,22 +26,23 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --slate-950: #020617;
-            --slate-900: #0f172a;
-            --slate-800: #1e293b;
-            --slate-700: #334155;
-            --slate-400: #94a3b8;
-            --indigo-500: #6366f1;
+            --bg-darkest: #020617;
+            --bg-card: #0f172a;
+            --border-color: #1e293b;
+            --text-dim: #94a3b8;
+            --accent: #6366f1;
             --white: #ffffff;
             --gold: #fbbf24;
             --silver: #cbd5e1;
-            --red-timer: #fb7185;
+            --danger: #f43f5e;
+            --success: #10b981;
         }
 
+        /* Base Setup */
         * {
             margin: 0;
             padding: 0;
@@ -50,374 +51,465 @@
         }
 
         body {
-            background-color: var(--slate-950);
+            background-color: var(--bg-darkest);
             color: var(--white);
             font-family: 'Inter', sans-serif;
             display: flex;
             min-height: 100vh;
         }
 
-        /* --- SIDEBAR AREA --- */
+        /* --- SIDEBAR DESIGN --- */
         aside {
-            width: 320px;
-            background: linear-gradient(180deg, var(--slate-900) 0%, var(--slate-950) 100%);
-            border-right: 1px solid var(--slate-800);
-            padding: 60px 35px;
+            width: 350px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-darkest) 100%);
+            border-right: 1px solid var(--border-color);
+            padding: 60px 40px;
             display: flex;
             flex-direction: column;
             position: sticky;
             top: 0;
             height: 100vh;
+            z-index: 100;
         }
 
-        .profile-container {
+        .profile-section {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .avatar-frame {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+        .avatar-glow {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 25px;
             padding: 4px;
-            background: linear-gradient(45deg, #6366f1, #a855f7, #ec4899);
-            border-radius: 35px;
+            background: linear-gradient(45deg, var(--accent), #ec4899, var(--gold));
+            border-radius: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-            animation: pulse-border 3s ease-in-out infinite;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+            animation: rotateBg 5s linear infinite;
         }
 
-        @keyframes pulse-border {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes rotateBg {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
         }
 
-        .avatar-frame img {
+        .avatar-glow img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 31px;
-            background: var(--slate-900);
+            border-radius: 34px;
+            background: var(--bg-card);
         }
 
-        .meta-list {
-            margin-top: 30px;
+        .name-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .job-tag {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-cards {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            margin-top: 35px;
         }
 
-        .meta-box {
-            background: rgba(30, 41, 59, 0.5);
-            padding: 12px 15px;
-            border-radius: 12px;
-            border-left: 3px solid var(--indigo-500);
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .meta-box label {
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(5px);
+            border-color: var(--accent);
+        }
+
+        .info-card label {
             display: block;
-            font-size: 0.65rem;
-            color: var(--slate-400);
+            font-size: 0.6rem;
+            color: var(--text-dim);
             text-transform: uppercase;
-            font-weight: 800;
+            font-weight: 900;
+            margin-bottom: 5px;
         }
 
-        .meta-box span {
+        .info-card p {
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .btn-link {
+        .cta-group {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 18px;
             text-decoration: none;
             color: white;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-top: 15px;
+            font-weight: 800;
+            font-size: 0.9rem;
             transition: 0.3s;
         }
 
-        .btn-ig { background: #d62976; }
-        .btn-tt { background: #000; border: 1px solid var(--slate-700); }
-        .btn-link:hover { transform: translateY(-3px); opacity: 0.9; }
+        .btn-ig { background: #E1306C; }
+        .btn-tt { background: #000; border: 1px solid var(--border-color); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
 
-        /* --- MAIN CONTENT AREA --- */
+        /* --- MAIN AREA --- */
         main {
             flex: 1;
-            padding: 80px 60px;
+            padding: 80px 70px;
+            max-width: 1400px;
         }
 
-        .header-section {
-            margin-bottom: 60px;
-        }
-
-        .header-section h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: -4px;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 40%, var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .header-section p {
-            color: var(--slate-400);
-            font-size: 1.1rem;
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 750px;
+            line-height: 1.7;
+            margin-bottom: 30px;
         }
 
-        .timezone-info {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 12px;
+        .zone-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
             background: rgba(99, 102, 241, 0.1);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--indigo-500);
-            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 700;
         }
 
-        .search-wrapper {
-            margin-bottom: 40px;
+        .filter-area {
+            margin: 50px 0;
         }
 
-        .search-bar {
+        .input-search {
             width: 100%;
-            max-width: 500px;
-            background: var(--slate-900);
-            border: 2px solid var(--slate-800);
-            padding: 18px 24px;
-            border-radius: 20px;
-            color: white;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .search-bar:focus { border-color: var(--indigo-500); }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .card {
-            background: var(--slate-900);
-            padding: 30px;
+            max-width: 600px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 22px 32px;
             border-radius: 24px;
-            border: 1px solid var(--slate-800);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.4s;
+        }
+
+        .input-search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 45px;
+            border-radius: 35px;
+            border: 1px solid var(--border-color);
             text-align: center;
         }
 
-        .card h2 { font-size: 3rem; color: var(--indigo-500); }
-        .card p { font-size: 0.8rem; color: var(--slate-400); font-weight: 700; text-transform: uppercase; }
+        .stat-card h3 { font-size: 4.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 10px; }
+        .stat-card p { font-size: 0.9rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; }
 
-        /* --- TABLE AREA --- */
-        .table-box {
-            background: var(--slate-900);
-            border-radius: 24px;
-            border: 1px solid var(--slate-800);
+        /* --- TABLE DESIGN --- */
+        .table-wrap {
+            background: var(--bg-card);
+            border-radius: 35px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
         }
 
         table { width: 100%; border-collapse: collapse; }
-        th { padding: 25px; text-align: left; font-size: 0.75rem; color: var(--slate-400); border-bottom: 1px solid var(--slate-800); }
-        td { padding: 30px 25px; border-bottom: 1px solid var(--slate-800); }
+        th { 
+            padding: 35px; 
+            text-align: left; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2.5px; 
+            color: var(--text-dim); 
+            border-bottom: 1px solid var(--border-color);
+        }
+        td { padding: 45px 35px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
 
-        .lomba-title {
+        .lomba-link {
             color: var(--white);
             text-decoration: none;
-            font-weight: 800;
-            font-size: 1.2rem;
+            font-weight: 900;
+            font-size: 1.4rem;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            line-height: 1.3;
         }
 
-        .info-vertical {
+        .lomba-link:hover { color: var(--accent); text-decoration: underline; }
+
+        .meta-stack {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            font-size: 0.85rem;
-            color: var(--slate-400);
+            gap: 8px;
+            font-size: 1rem;
+            color: var(--text-dim);
         }
 
-        .badge {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.7rem;
+        .meta-row { display: flex; align-items: center; gap: 12px; }
+        .meta-label { font-weight: 800; color: #475569; min-width: 150px; }
+
+        .tag {
+            display: inline-flex;
+            margin-top: 25px;
+            padding: 10px 22px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .tag-gold { background: rgba(251, 191, 36, 0.1); color: var(--gold); border: 1px solid var(--gold); }
+        .tag-silver { background: rgba(203, 213, 225, 0.1); color: var(--silver); border: 1px solid var(--silver); }
+        .tag-coming { background: rgba(99, 102, 241, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+
+        .timer-ui {
+            margin-top: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
             font-weight: 800;
-        }
-
-        .gold { background: rgba(251, 191, 36, 0.1); color: var(--gold); border: 1px solid var(--gold); }
-        .coming { background: rgba(99, 102, 241, 0.1); color: var(--indigo-500); border: 1px solid var(--indigo-500); }
-
-        .timer-box {
-            margin-top: 15px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--red-timer);
-            background: rgba(251, 113, 129, 0.1);
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: inline-block;
+            color: var(--danger);
+            background: rgba(244, 63, 94, 0.1);
+            padding: 14px 24px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
         }
 
         footer {
-            margin-top: 100px;
-            padding: 40px;
+            margin-top: 150px;
+            padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid var(--slate-800);
-            color: var(--slate-700);
-            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            color: #334155;
+            font-size: 0.95rem;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             body { flex-direction: column; }
-            aside { width: 100%; height: auto; position: relative; }
-            main { padding: 40px 20px; }
+            aside { width: 100%; height: auto; position: relative; padding: 50px 25px; }
+            main { padding: 50px 25px; }
+            .hero h1 { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
     <aside>
-        <div class="profile-container">
-            <div class="avatar-frame"><img src="https://files.catbox.moe/cwu6d7.png" alt="Fadel"></div>
-            <h3 style="font-size:1.4rem">Fadel Shafwan Maliki</h3>
-            <p style="color:var(--indigo-500); font-size:0.8rem; font-weight:700">SOFTWARE ENGINEER</p>
+        <div class="profile-section">
+            <div class="avatar-glow"><img src="https://files.catbox.moe/cwu6d7.png" alt="Fadel"></div>
+            <h2 class="name-title">Fadel Shafwan Maliki</h2>
+            <p class="job-tag">Cyber Security Enthusiast</p>
         </div>
         
-        <div class="meta-list">
-            <div class="meta-box"><label>Sekolah</label><span>SMA PGRI 3 Jakarta</span></div>
-            <div class="meta-box"><label>Kelas</label><span>X.4 (Sepuluh)</span></div>
-            <div class="meta-box"><label>Status</label><span>Anak Bungsu</span></div>
+        <div class="info-cards">
+            <div class="info-card"><label>Almamater</label><p>SMA PGRI 3 Jakarta</p></div>
+            <div class="info-card"><label>Kelas Aktif</label><p>X.4 (Sepuluh)</p></div>
+            <div class="info-card"><label>Spesialisasi</label><p>Software Engineering</p></div>
+            <div class="info-card"><label>Peringkat Keluarga</label><p>Anak Bungsu</p></div>
         </div>
 
-        <a href="https://instagram.com/fadelshafwanmaliki" class="btn-link btn-ig">Instagram</a>
-        <a href="https://tiktok.com/@fadelshafwan" class="btn-link btn-tt">TikTok</a>
+        <div class="cta-group">
+            <a href="https://instagram.com/fadelshafwanmaliki" target="_blank" class="btn btn-ig">Instagram Portfolio</a>
+            <a href="https://tiktok.com/@fadelshafwan" target="_blank" class="btn btn-tt">TikTok Channel</a>
+        </div>
     </aside>
 
     <main>
-        <header class="header-section">
+        <header class="hero">
             <h1>Achievement</h1>
-            <p>Database prestasi akademik & kompetisi nasional.</p>
-            <div id="user-tz" class="timezone-info">Mendeteksi Zona Waktu...</div>
+            <p>Daftar lengkap medali nasional, sertifikasi kompetensi, dan jadwal olimpiade sains mendatang yang diikuti oleh Fadel Shafwan Maliki selama tahun 2026.</p>
+            <div id="user-tz-info" class="zone-pill">🔄 Menghitung lokasi server lokal...</div>
         </header>
 
-        <div class="search-wrapper">
-            <input type="text" id="search" class="search-bar" placeholder="Cari nama lomba...">
+        <div class="filter-area">
+            <input type="text" id="master-search" class="input-search" placeholder="Cari nama kompetisi atau bidang studi...">
         </div>
 
-        <div class="dashboard-grid">
-            <div class="card"><h2 id="count-gold">0</h2><p>Medali Emas</p></div>
-            <div class="card"><h2 id="count-total">0</h2><p>Total Lomba</p></div>
+        <div class="stats">
+            <div class="stat-card"><h3 id="gold-total">0</h3><p>Medali Emas</p></div>
+            <div class="stat-card"><h3 id="all-total">0</h3><p>Total Partisipasi</p></div>
         </div>
 
-        <div class="table-box">
+        <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th style="width:140px">Timeline</th>
-                        <th>Detail Kompetisi</th>
+                        <th style="width:180px">Tanggal</th>
+                        <th>Keterangan Lengkap</th>
                     </tr>
                 </thead>
-                <tbody id="render-target"></tbody>
+                <tbody id="master-table"></tbody>
             </table>
         </div>
 
         <footer>
-            &copy; 2026 Fadel Shafwan Maliki. Dibuat dengan presisi tinggi.<br>
-            Waktu lokal Anda digunakan untuk sinkronisasi hitung mundur.
+            &copy; 2026 Fadel Shafwan Maliki. <br>
+            Portfolio ini dikembangkan menggunakan JavaScript murni (Vanilla JS). <br>
+            Seluruh data kompetisi disinkronkan secara real-time dengan zona waktu perangkat Anda.
         </footer>
     </main>
 
     <script>
         /**
-         * DATABASE LENGKAP
+         * FULL DATABASE - 20 ITEMS
+         * Disertai jam spesifik sesuai request user
          */
-        const db = [
+        const fullDatabase = [
             { id: 1, date: "2026-03-01T08:00:00", name: "Ramadhan Science Competition Indonesia (RSCI)", host: "Fosnas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1eztmI8LVAH0UOV_WnVB1RjkLmjBTwiT1/view" },
             { id: 2, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Ekonomi", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1LMRLct-DOdGwMh6F1bHQMS-1yfU02pQr/view" },
             { id: 3, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "PPKN", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1IoBjF9ho5bU-zgQRFivI_5ZNVGPF6R6I/view" },
             { id: 4, date: "2026-03-15T08:00:00", name: "Semarak Sains Nasional (SSN)", host: "Gemanesia", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1Hd72RWn1hA8_EhKtoeVd5B4YK8XIt4w2/view" },
-            { id: 14, date: "2026-04-19T08:00:00", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
-            { id: 17, date: "2026-05-24T09:00:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" }
+            { id: 5, date: "2026-03-29T08:00:00", name: "National Science Competition (NSC)", host: "Puskanas", field: "PPKN", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1Dwf8cW6rfS8C3hk5KHl85QThNOruQAlH/view" },
+            { id: 6, date: "2026-03-29T08:00:00", name: "National Science Competition (NSC)", host: "Puskanas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1OJSE8bk_muhpFrXfmNyrk-kWHnOx8X6F/view" },
+            { id: 7, date: "2026-03-29T08:00:00", name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Ekonomi", result: "Medali Perak", link: "https://drive.google.com/file/d/1-VxeLUvyW2mh7JPHzt27TXE7fY9GFbKW/view" },
+            { id: 8, date: "2026-03-29T08:00:00", name: "Olimpiade Sains Muda Indonesia (OSMI)", host: "Muda Sains", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/19BUdb6SMu5DhVRepPCQzS3q5NX5AH_bh/view" },
+            { id: 9, date: "2026-04-05T08:00:00", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Indonesia", result: "Medali Perak", link: "#" },
+            { id: 10, date: "2026-04-05T08:00:00", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Bahasa Inggris", result: "Medali Emas (A+)", link: "#" },
+            { id: 11, date: "2026-04-05T08:00:00", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Matematika", result: "Medali Perak", link: "#" },
+            { id: 12, date: "2026-04-05T08:00:00", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Kimia", result: "Medali Perak", link: "#" },
+            { id: 13, date: "2026-04-05T08:00:00", name: "Future Science Competition (FSC)", host: "Yaspresnas", field: "Informatika", result: "Medali Perak", link: "#" },
+            { id: 14, date: "2026-04-19T14:00:00", name: "Pekan Sains Pelajar Indonesia (PSPI)", host: "Gemanesia", field: "Informatika", result: "Coming Soon", link: "#" },
+            { id: 15, date: "2026-04-19T11:00:00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "Biologi", result: "Coming Soon", link: "#" },
+            { id: 16, date: "2026-04-19T16:00:00", name: "Olimpiade Sains dan Teknologi Nasional (OSTN)", host: "Sentral Olimpiade", field: "PPKN", result: "Coming Soon", link: "#" },
+            { id: 17, date: "2026-05-24T15:00:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Informatika", result: "Coming Soon", link: "#" },
+            { id: 18, date: "2026-05-24T14:00:00", name: "Sentral Olimpiade Nasional (SEON)", host: "Sentral Olimpiade", field: "Geografi", result: "Coming Soon", link: "#" },
+            { id: 19, date: "2026-04-26T09:00:00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Ekonomi", result: "Coming Soon", link: "#" },
+            { id: 20, date: "2026-04-26T14:00:00", name: "Kejuaraan Sains Nasional (KSN)", host: "Puskanas", field: "Informatika", result: "Coming Soon", link: "#" }
         ];
 
-        // 1. Deteksi Timezone Pengunjung
-        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('user-tz').innerText = `Zona Waktu Anda: ${userTimezone}`;
+        // 1. Sinkronisasi Zona Waktu
+        const zoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('user-tz-info').innerText = `🌍 Zona Waktu Terdeteksi: ${zoneName}`;
 
         /**
-         * 2. Fungsi Hitung Mundur Real-Time sesuai daerah
+         * 2. Logika Hitung Mundur Real-Time
          */
-        function updateCountdowns() {
-            const timers = document.querySelectorAll('.dynamic-timer');
-            timers.forEach(timer => {
-                const targetDate = new Date(timer.dataset.date).getTime();
+        function refreshTimers() {
+            const timerEls = document.querySelectorAll('.dynamic-timer');
+            timerEls.forEach(el => {
+                const target = new Date(el.dataset.time).getTime();
                 const now = new Date().getTime();
-                const distance = targetDate - now;
+                const diff = target - now;
 
-                if (distance < 0) {
-                    timer.innerText = "Kompetisi Dimulai!";
-                    timer.style.color = "#4ade80";
+                if (diff <= 0) {
+                    el.innerText = "SEDANG BERLANGSUNG / SELESAI";
+                    el.style.color = "#10b981";
                 } else {
-                    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((distance % (1000 * 60)) / 1000);
-                    timer.innerText = `⏳ ${d}h ${h}m ${m}s ${s}s`;
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    el.innerText = `⏳ ${d} Hari ${h}:${m}:${s}`;
                 }
             });
         }
 
         /**
-         * 3. Fungsi Render Utama
+         * 3. Fungsi Render Tabel Utama
          */
-        function render(filter = "") {
-            const target = document.getElementById('render-target');
-            target.innerHTML = "";
+        function renderUI(search = "") {
+            const container = document.getElementById('master-table');
+            container.innerHTML = "";
             
-            const filtered = db.filter(i => i.name.toLowerCase().includes(filter.toLowerCase()));
+            const filtered = fullDatabase.filter(item => 
+                item.name.toLowerCase().includes(search.toLowerCase()) || 
+                item.field.toLowerCase().includes(search.toLowerCase())
+            );
 
             filtered.forEach(item => {
                 const isComing = item.result === "Coming Soon";
-                const badge = item.result.includes("Emas") ? "gold" : isComing ? "coming" : "silver";
-                const dateView = new Date(item.date).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+                let tagType = "tag-silver";
+                if (item.result.includes("Emas")) tagType = "tag-gold";
+                if (isComing) tagType = "tag-coming";
 
-                target.innerHTML += `
+                const dateDisplay = new Date(item.date).toLocaleDateString('id-ID', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                });
+
+                const row = `
                     <tr>
-                        <td style="font-size:0.8rem; color:var(--slate-400); font-weight:600">${dateView}</td>
+                        <td style="font-weight:800; color:var(--text-dim)">${dateDisplay}</td>
                         <td>
-                            <a href="${item.link}" class="lomba-title" target="_blank">${item.name}</a>
-                            <div class="info-vertical">
-                                <span><b>Penyelenggara:</b> ${item.host}</span>
-                                <span><b>Bidang:</b> ${item.field}</span>
+                            <a href="${item.link}" class="lomba-link" target="_blank">${item.name}</a>
+                            <div class="meta-stack">
+                                <div class="meta-row"><span class="meta-label">Penyelenggara:</span><span>${item.host}</span></div>
+                                <div class="meta-row"><span class="meta-label">Bidang Studi:</span><span>${item.field}</span></div>
                             </div>
-                            <span class="badge ${badge}">${item.result}</span>
-                            ${isComing ? `<br><div class="timer-box dynamic-timer" data-date="${item.date}">Menghitung...</div>` : ""}
+                            <span class="tag ${tagType}">${item.result}</span>
+                            ${isComing ? `<br><div class="timer-ui dynamic-timer" data-time="${item.date}">Menghitung...</div>` : ""}
                         </td>
                     </tr>`;
+                container.insertAdjacentHTML('beforeend', row);
             });
         }
 
-        // Jalankan Script
-        window.onload = () => {
-            render();
-            document.getElementById('count-gold').innerText = db.filter(i => i.result.includes("Emas")).length;
-            document.getElementById('count-total').innerText = db.length;
+        // Jalankan Inisialisasi
+        window.addEventListener('load', () => {
+            renderUI();
             
-            // Update timer setiap 1 detik
-            setInterval(updateCountdowns, 1000);
+            // Statistik
+            document.getElementById('gold-total').innerText = fullDatabase.filter(i => i.result.includes("Emas")).length;
+            document.getElementById('all-total').innerText = fullDatabase.length;
             
-            document.getElementById('search').oninput = (e) => render(e.target.value);
-        };
+            // Start Loop Timer
+            setInterval(refreshTimers, 1000);
+            
+            // Search Listener
+            document.getElementById('master-search').addEventListener('input', (e) => {
+                renderUI(e.target.value);
+            });
+        });
     </script>
 </body>
 </html>
