@@ -359,7 +359,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             setInterval(() => {
     const eventDate = new Date(item.date).getTime();
-    // Kita asumsikan batas "Proses" adalah 2 jam setelah jam mulai lomba
     const processDeadline = eventDate + (2 * 60 * 60 * 1000); 
     
     const now = new Date().getTime();
@@ -368,7 +367,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     if (timerElement) {
         if (distance > 0) {
-            // LOGIKA HITUNG MUNDUR (Sama seperti sebelumnya)
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             if (days >= 1) {
                 timerElement.innerHTML = `⏳ ${days + 1} Hari lagi`;
@@ -379,13 +377,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 timerElement.innerHTML = `⏳ ${h}h ${m}m ${s}s`;
             }
         } else if (now < processDeadline) {
-            // LOGIKA PROSES (Jika sudah lewat jam mulai tapi belum lewat deadline)
-            timerElement.innerHTML = "⚙️ Dalam Proses";
-            timerElement.parentElement.className = "badge badge-pending"; // Tetap warna abu-abu
-            timerElement.style.color = "#fbbf24"; // Kita kasih warna kuning biar kelihatan proses
+            timerElement.innerHTML = "Proses Dikerjakan";
+            timerElement.parentElement.className = "badge badge-pending";
+            timerElement.style.color = "#fbbf24";
         } else {
-            // LOGIKA SELESAI
-            timerElement.innerHTML = "✅ Selesai";
+            timerElement.innerHTML = "Tunggu Hasilnya";
             timerElement.style.color = "#94a3b8"; 
         }
     }
