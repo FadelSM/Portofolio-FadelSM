@@ -272,10 +272,14 @@
     </aside>
 
     <main>
-        <header>
-            <h1>Achievement Repository</h1>
-            <p>Database prestasi dan sertifikasi akademik.</p>
-        </header>
+        <header style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+    <div>
+        <h1>Achievement Repository</h1>
+        <p>Database prestasi dan sertifikasi akademik.</p>
+    </div>
+    <div id="local-clock" style="background: var(--slate-800); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--slate-700); font-size: 0.75rem; color: var(--indigo-500); font-family: monospace; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    </div>
+</header>
 
         <input type="text" id="search-bar" class="search-input" placeholder="Cari nama lomba atau subjek...">
 
@@ -313,7 +317,7 @@
             &copy; 2026 Fadel Shafwan Maliki.
         </footer>
     </main>
-
+    
     <script>
         const repository = [
             { id: 1, date: "1 Maret 2026", name: "Ramadhan Science Competition Indonesia (RSCI) 2026", host: "Fosnas", field: "Informatika", result: "Medali Emas (A+)", link: "https://drive.google.com/file/d/1eztmI8LVAH0UOV_WnVB1RjkLmjBTwiT1/view?usp=drive_link" },
@@ -422,6 +426,33 @@
 }
 
 initDashboard();
+        
+        function updateClock() {
+    const now = new Date();
+    
+    // Format Jam
+    const timeStr = now.toLocaleTimeString('id-ID', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+    });
+    
+    // Format Tanggal Singkat
+    const dateStr = now.toLocaleDateString('id-ID', { 
+        day: 'numeric', 
+        month: 'short' 
+    });
+
+    const clockElement = document.getElementById('local-clock');
+    if (clockElement) {
+        clockElement.innerHTML = `🕒 ${dateStr} | ${timeStr}`;
+    }
+}
+
+// Update setiap detik
+setInterval(updateClock, 1000);
+updateClock();
     </script>
 </body>
 </html>
