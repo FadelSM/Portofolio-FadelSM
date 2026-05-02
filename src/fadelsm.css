@@ -83,6 +83,14 @@ display: flex; justify-content: space-between; align-items: flex-start; flex-wra
     font-size: 1rem;
 }
 
+.footer-links {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .footer-link {
     color: #5a5a72;
     text-decoration: none;
