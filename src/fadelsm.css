@@ -32,7 +32,18 @@ aside {
     box-sizing: border-box;
 }
 
-.dev-profile { text-align: center; margin-bottom: 30px; }
+.dev-profile { 
+text-align: center; margin-bottom: 30px; 
+}
+
+.name-profile {
+margin: 0; font-size: 1.2rem;
+}
+
+.desk-profile {
+color: var(--indigo-500); font-size: 0.9rem; font-weight: 600; margin: 4px 0 0 0;
+}
+
 
 .dev-avatar { 
     width: 90px; height: 90px; border-radius: 24px; margin: 0 auto 20px; 
